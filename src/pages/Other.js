@@ -1,4 +1,4 @@
-// export default function Other() {
+export default function Other() {
 
-//     return <h1>other</h1>
-// }
+    return <h1>other</h1>
+}
