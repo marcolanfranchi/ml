@@ -1,6 +1,4 @@
-import { FaD } from "react-icons/fa6";
 import "./projects.css";
-import { FaPython, FaDatabase, FaGithub } from 'react-icons/fa'; // Example icons
 import { Icon } from '@iconify/react';
 
 const projectData = [

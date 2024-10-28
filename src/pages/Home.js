@@ -15,8 +15,8 @@ export default function Home() {
 
     return (
         <div className="home-container">
-            <h1>marco lanfranchi</h1>
-            <p className="full-text">
+            <h1 style={{ textAlign: 'left' }}>marco lanfranchi</h1>
+            <p className="full-text" style={{ textAlign: 'left' }}>
                 {fullText}
             </p>
             <div className="grid-item">
@@ -36,7 +36,7 @@ export default function Home() {
                     src={image4} 
                     alt="Pic 2" 
                 /> */}
-                <p className="bottom-text">{descriptions[0]}</p> {/* Always display the first description */}
+                {/* <p className="bottom-text">{descriptions[0]}</p> Always display the first description */}
             </div>
         </div>
     );

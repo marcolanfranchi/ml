@@ -1,11 +1,4 @@
 import "./about.css";
-import { FaPython, FaDatabase, FaGithub} from 'react-icons/fa'; // Importing icons
-
-// import { ReactComponent as PythonIcon } from './assets/icons/python.svg';
-// import { ReactComponent as DatabaseIcon } from './assets/icons/database.svg';
-// import { ReactComponent as GithubIcon } from './assets/icons/github.svg';
-
-import { ReactComponent as snowflakeIcon } from './skill_icons/snowflake-icon.svg';
 
 export default function About() {
 
