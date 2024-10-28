@@ -2,7 +2,7 @@ import React from 'react';
 import './home.css';
 
 const image1 = '/images/moving.gif';
-// const image2 = 'images/moving2.gif';
+const image2 = 'images/moving2.gif';
 const image3 = 'images/moving3.gif';
 // const image4 = 'images/moving4.gif';
 const descriptions = [
@@ -24,10 +24,10 @@ export default function Home() {
                     src={image1} 
                     alt="Pic 1" 
                 />
-                {/* <img 
+                <img 
                     src={image2} 
                     alt="Pic 2" 
-                /> */}
+                />
                 <img 
                     src={image3} 
                     alt="Pic 1" 
