@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 
 const projectData = [
     {
-        image: "/images/sm-homepage.png",
+        image: `${process.env.PUBLIC_URL}/images/sm-homepage.png`,
         title: "stock-models",
         tags: ["Data Engineering", "Machine Learning", "Database Management", "Front End"],
         description: "Developed a PostgreSQL-based system with a data pipeline and Streamlit \
@@ -19,7 +19,7 @@ const projectData = [
         link: "https://github.com/marcolanfranchi/stock-models",
     },
     {
-        image: "/images/this-projects.png",
+        image: `${process.env.PUBLIC_URL}/images/this-projects.png`,
         title: "ml (this website)",
         tags: ["Web Application", "Front End"],
         description: "Developed a React-based personal website which you are currently viewing.",
@@ -33,7 +33,7 @@ const projectData = [
         link: "https://github.com/marcolanfranchi/ml",
     },
     {
-        image: "/images/iamt-homepage.png",
+        image: `${process.env.PUBLIC_URL}/images/iamt-homepage.png`,
         title: "iammusic-template",
         tags: ["Web Application", "Front End", "Cloud Storage"],
         description: "Developed a React-based web app with a customizable album cover \
@@ -51,7 +51,7 @@ const projectData = [
         link: "https://github.com/marcolanfranchi/iammusic-template",
     },
     {
-        image: "/images/knn-homepage.png",
+        image: `${process.env.PUBLIC_URL}/images/knn-homepage.png`,
         title: "digit-recognition-from-scratch",
         tags: ["Machine Learning", "Computer Vision", "Data Processing", "Front End"],
         description: "Implemented a K-nearest neighbors algorithm from scratch in Python \
@@ -64,7 +64,7 @@ const projectData = [
         link: "https://github.com/marcolanfranchi/digit-recognition-from-scratch",
     },
     {
-        image: "/images/aita-code.png",
+        image: `${process.env.PUBLIC_URL}/images/aita-code.png`,
         title: "aita-predictor",
         tags: ["Natural Language Processing", "Machine Learning", "Big Data Processing", "Front End"],
         description: "Developed a machine learning model to classify r/AmItheA-hole Reddit \
@@ -81,7 +81,7 @@ const projectData = [
         link: "https://github.com/marcolanfranchi/aita-predictor",
     },
     {
-        image: "/images/ftqb-game.png",
+        image: `${process.env.PUBLIC_URL}/images/ftqb-game.png`,
         title: "find-the-queen-bee",
         tags: ["Game Development", "Build Automation", "Testing"],
         description: "Created a Java Swing game where players navigate obstacles and avoid enemies \
@@ -95,7 +95,7 @@ const projectData = [
         link: "https://github.com/marcolanfranchi/find-the-queen-bee",
     },
     {
-        image: "/images/vcm-homepage.png",
+        image: `${process.env.PUBLIC_URL}/images/vcm-homepage.png`,
         title: "vancouver-crime-map",
         tags: ["Web Application", "Data Visualization", "Geospatial Analysis"],
         description: "Built and hosted an interactive web app visualizing over 1 million Vancouver crime \

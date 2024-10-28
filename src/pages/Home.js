@@ -1,14 +1,14 @@
 import React from 'react';
 import './home.css';
 
-const image1 = '/images/moving.gif';
-const image2 = 'images/moving2.gif';
-const image3 = 'images/moving3.gif';
+const image1 = `${process.env.PUBLIC_URL}/images/moving.gif`;
+const image2 = `${process.env.PUBLIC_URL}/images/moving2.gif`;
+const image3 = `${process.env.PUBLIC_URL}/images/moving3.gif`;
 // const image4 = 'images/moving4.gif';
-const descriptions = [
-    // "currently in my 4th year of a BSc in data science @ SFU. joining Samsung R&D Canada as a database engineer intern in Jan 2025.",
-    // "currently in my 4th year of a BSc in data science @ SFU. joining Samsung R&D Canada as a database engineer intern in Jan 2025.",
-];
+// const descriptions = [
+//     // "currently in my 4th year of a BSc in data science @ SFU. joining Samsung R&D Canada as a database engineer intern in Jan 2025.",
+//     // "currently in my 4th year of a BSc in data science @ SFU. joining Samsung R&D Canada as a database engineer intern in Jan 2025.",
+// ];
 
 export default function Home() {
     const fullText = "currently in my 4th year of a BSc in data science @ SFU. joining Samsung R&D Vancouver as a database engineer intern in Jan 2025.";

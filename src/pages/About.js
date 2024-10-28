@@ -78,6 +78,7 @@ export default function About() {
                     <h3>Software Development</h3>
                     <ul>
                         <li>
+                        <a href="https://github.com/marcolanfranchi/ml" target="_blank" rel="noopener noreferrer"> this website</a>,
                         <a href="https://github.com/marcolanfranchi/iammusic-template" target="_blank" rel="noopener noreferrer"> iammusic-template</a>,
                         <a href="https://www.sfu.ca/students/calendar/2024/fall/courses/cmpt/307.html" target="_blank" rel="noopener noreferrer"> CMPT 307</a>, 
                         <a href="https://www.sfu.ca/students/calendar/2024/fall/courses/cmpt/295.html" target="_blank" rel="noopener noreferrer"> CMPT 295</a>,
