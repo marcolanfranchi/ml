@@ -3,6 +3,8 @@
     padding: 20px;
     max-width: 900px;
     margin: 0 auto;
+    transform: scale(0.8);
+    transform-origin: top center;
     overflow: hidden;
 }
 
