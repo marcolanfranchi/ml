@@ -1,5 +1,5 @@
 .about-container {
-    text-align: center;
+    /* text-align: center; */
     padding: 20px;
     max-width: 900px; 
     transform: scale(0.8);
@@ -30,7 +30,7 @@
 
  /*zoom in on job card on hover  */
 .job-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
     transition: transform 0.3s ease;
 }
 
@@ -93,7 +93,7 @@
 }
 
 .school-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
     transition: transform 0.3s ease;
 }
 
