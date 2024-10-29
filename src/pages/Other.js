@@ -88,8 +88,8 @@ export default function Other() {
     const movies = [
         { title: "Godfather", year: "1972" },
         { title: "Stand By Me", year: "1986" },
-        { title: "La Haine", year: "1995" },
-        { title: "Good Will Hunting", year: "1997" },
+        // { title: "La Haine", year: "1995" },
+        // { title: "Good Will Hunting", year: "1997" },
         { title: "Gummo", year: "1997" },
         { title: "American Psycho", year: "2000" },
         { title: "Zoolander", year: "2001" },
