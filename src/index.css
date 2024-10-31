@@ -60,7 +60,8 @@ code {
 
 .nav li.active {
   /* underline */
-  font-style: italic;
+  /* font-style: italic; */
+  font-weight: bold;
 }
 
 .nav li:hover {

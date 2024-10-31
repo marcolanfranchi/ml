@@ -7,7 +7,6 @@ const image3 = `${process.env.PUBLIC_URL}/images/moving3.gif`;
 // const image4 = 'images/moving4.gif';
 // const descriptions = [
 //     // "currently in my 4th year of a BSc in data science @ SFU. joining Samsung R&D Canada as a database engineer intern in Jan 2025.",
-//     // "currently in my 4th year of a BSc in data science @ SFU. joining Samsung R&D Canada as a database engineer intern in Jan 2025.",
 // ];
 
 export default function Home() {

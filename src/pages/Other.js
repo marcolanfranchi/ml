@@ -41,7 +41,7 @@ export default function Other() {
         { artist: "Lil Peep", album: "Come Over When You're Sober" },
         { artist: "Lil Shine", album: "Losing Myself"},
         { artist: "Lucki", album: "FLAWLESS LIKE ME" },
-        { artist: "Mariah Carey", album: "The Emancipation of Mimi" },
+        // { artist: "Mariah Carey", album: "The Emancipation of Mimi" },
         { artist: "Marlon DuBois", album: "Bender" },
         { artist: "Matt Maltese", album: "Krystal" },
         { artist: "MF DOOM", album: "Operation: Doomsday" },
@@ -77,7 +77,7 @@ export default function Other() {
         // { artist: "Wisp", album: "Your face"},
         { artist: "Yabujin", album: "Chalice of Mind" },
         { artist: "Yhappojj", album: "Evolution of Xur" },
-        { artist: "Yot Club", album: "Bpolar" },
+        { artist: "Yot Club", album: "Bipolar" },
         // { artist: "Young Thug", album: "Barter 6" },
         { artist: "Young Thug", album: "Slime Season 3" },
         // { artist: "03Greedo", album: "Sweet Lady" },
@@ -86,7 +86,7 @@ export default function Other() {
     ];
 
     const movies = [
-        { title: "Godfather", year: "1972" },
+        { title: "The Godfather", year: "1972" },
         { title: "Stand By Me", year: "1986" },
         // { title: "La Haine", year: "1995" },
         // { title: "Good Will Hunting", year: "1997" },

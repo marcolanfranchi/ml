@@ -29,6 +29,7 @@ const projectData = [
             <Icon icon="skill-icons:css" />,
             <Icon icon="skill-icons:html" />,
             <Icon icon="skill-icons:vercel-dark" />,
+            <Icon icon="skill-icons:npm-dark" />,
         ],
         link: "https://github.com/marcolanfranchi/ml",
     },
@@ -47,6 +48,8 @@ const projectData = [
             <Icon icon="skill-icons:html" />,
             <Icon icon="skill-icons:gcp-dark" />,
             <Icon icon="skill-icons:vercel-dark" />,
+            <Icon icon="skill-icons:npm-dark" />,
+
         ],
         link: "https://github.com/marcolanfranchi/iammusic-template",
     },
