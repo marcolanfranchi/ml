@@ -4,9 +4,9 @@ export default function About() {
 
     return (
         <div className="about-container">
-            <h1 style={{textAlign:'left'}}>about me</h1>
+            <h1 style={{textAlign:'left'}}>About Me</h1>
             <div className="blank-space"> <p></p></div>
-            <h2 className="sub-header">work experience</h2>
+            <h2 className="sub-header">Work Experience</h2>
             {/* jobs */}
             {/* Samsung */}
             <div className="job-card">
@@ -36,7 +36,7 @@ export default function About() {
                 <div className="job-location">Vancouver, BC</div>
             </div>
             <div className="blank-space"> <p></p></div>
-            <h2 className="sub-header">education</h2>
+            <h2 className="sub-header">Education</h2>
             {/* School */}
             {/* SFU */}
             <div className="school-card">
@@ -48,8 +48,8 @@ export default function About() {
                 <div className="job-location">Burnaby, BC</div>
             </div>
             <div className="blank-space"> <p></p></div>
-            <h2 className="sub-header">skills</h2>
-            <p style={{textAlign:'left'}}>including some relevant work experience, projects, and courses.</p>
+            <h2 className="sub-header">Skills</h2>
+            <p style={{textAlign:'left'}}>Including some relevant work experience, projects, and courses.</p>
             {/* skills */}
             
             <div className="skills-section">

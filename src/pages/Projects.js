@@ -117,8 +117,8 @@ const projectData = [
 export default function Projects() {
     return (
         <div className="projects-container">
-            <h1 style={{textAlign:'left'}}>my projects</h1>
-            <p style={{textAlign:'left'}}>below are some of my recent projects. click the card to go to the project's github repository.</p>
+            <h1 style={{textAlign:'left'}}>My Projects</h1>
+            <p style={{textAlign:'left'}}>Below are some of my projects from the past few years. Click the card to go to the project's github repository.</p>
             <div className="blank-space"> <p></p></div>
             <div className="blank-space"> <p></p></div>
 
