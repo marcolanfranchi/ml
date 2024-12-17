@@ -66,59 +66,59 @@ const projectData = [
         ],
         link: "https://github.com/marcolanfranchi/digit-recognition-from-scratch",
     },
-    {
-        image: `${process.env.PUBLIC_URL}/images/aita-code.png`,
-        title: "aita-predictor",
-        tags: ["Natural Language Processing", "Machine Learning", "Big Data Processing", "Front End"],
-        description: "Developed a machine learning model to classify r/AmItheA-hole Reddit \
-        posts using PySpark for large-scale text processing, ensemble modeling with scikit-learn \
-        for improved accuracy, and a Streamlit UI for interactive story submission and \
-        classification testing.",
-        technologies: [
-            <Icon icon="skill-icons:python-dark" />,
-            <Icon icon="skill-icons:scikitlearn-dark" />,
-            <Icon icon="skill-icons:pytorch-dark" />,
-            <Icon icon="skill-icons:pkl-dark" />,
-            <Icon icon="skill-icons:anaconda-dark" />
-        ],
-        link: "https://github.com/marcolanfranchi/aita-predictor",
-    },
-    {
-        image: `${process.env.PUBLIC_URL}/images/ftqb-game.png`,
-        title: "find-the-queen-bee",
-        tags: ["Game Development", "Build Automation", "Testing"],
-        description: "Created a Java Swing game where players navigate obstacles and avoid enemies \
-        using A* search to locate the queen bee, developed iteratively with UML diagrams, Maven for \
-        automation, and JaCoCo for full test coverage.",
-        technologies: [
-            <Icon icon="skill-icons:java-dark" />,
-            <Icon icon="skill-icons:maven-dark" />,
-            <Icon icon="skill-icons:idea-dark" />
-        ],
-        link: "https://github.com/marcolanfranchi/find-the-queen-bee",
-    },
-    {
-        image: `${process.env.PUBLIC_URL}/images/vcm-homepage.png`,
-        title: "vancouver-crime-map",
-        tags: ["Web Application", "Data Visualization", "Geospatial Analysis"],
-        description: "Built and hosted an interactive web app visualizing over 1 million Vancouver crime \
-        records, using Folium for map-based data display with filtering and caching to optimize \
-        performance and ensure responsive user interactions.",
-        technologies: [
-            <Icon icon="skill-icons:python-dark" />,
-            <Icon icon="skill-icons:html" />,
-            <Icon icon="skill-icons:sqlite" />
+    // {
+    //     image: `${process.env.PUBLIC_URL}/images/aita-code.png`,
+    //     title: "aita-predictor",
+    //     tags: ["Natural Language Processing", "Machine Learning", "Big Data Processing", "Front End"],
+    //     description: "Developed a machine learning model to classify r/AmItheA-hole Reddit \
+    //     posts using PySpark for large-scale text processing, ensemble modeling with scikit-learn \
+    //     for improved accuracy, and a Streamlit UI for interactive story submission and \
+    //     classification testing.",
+    //     technologies: [
+    //         <Icon icon="skill-icons:python-dark" />,
+    //         <Icon icon="skill-icons:scikitlearn-dark" />,
+    //         <Icon icon="skill-icons:pytorch-dark" />,
+    //         <Icon icon="skill-icons:pkl-dark" />,
+    //         <Icon icon="skill-icons:anaconda-dark" />
+    //     ],
+    //     link: "https://github.com/marcolanfranchi/aita-predictor",
+    // },
+    // {
+    //     image: `${process.env.PUBLIC_URL}/images/ftqb-game.png`,
+    //     title: "find-the-queen-bee",
+    //     tags: ["Game Development", "Build Automation", "Testing"],
+    //     description: "Created a Java Swing game where players navigate obstacles and avoid enemies \
+    //     using A* search to locate the queen bee, developed iteratively with UML diagrams, Maven for \
+    //     automation, and JaCoCo for full test coverage.",
+    //     technologies: [
+    //         <Icon icon="skill-icons:java-dark" />,
+    //         <Icon icon="skill-icons:maven-dark" />,
+    //         <Icon icon="skill-icons:idea-dark" />
+    //     ],
+    //     link: "https://github.com/marcolanfranchi/find-the-queen-bee",
+    // },
+    // {
+    //     image: `${process.env.PUBLIC_URL}/images/vcm-homepage.png`,
+    //     title: "vancouver-crime-map",
+    //     tags: ["Web Application", "Data Visualization", "Geospatial Analysis"],
+    //     description: "Built and hosted an interactive web app visualizing over 1 million Vancouver crime \
+    //     records, using Folium for map-based data display with filtering and caching to optimize \
+    //     performance and ensure responsive user interactions.",
+    //     technologies: [
+    //         <Icon icon="skill-icons:python-dark" />,
+    //         <Icon icon="skill-icons:html" />,
+    //         <Icon icon="skill-icons:sqlite" />
 
-        ],
-        link: "https://github.com/marcolanfranchi/vancouver-crime-map",
-    },
+    //     ],
+    //     link: "https://github.com/marcolanfranchi/vancouver-crime-map",
+    // },
 ];
 
 export default function Projects() {
     return (
         <div className="projects-container">
-            <h1 style={{textAlign:'left'}}>My Projects</h1>
-            <p style={{textAlign:'left'}}>Below are some of my projects from the past few years. Click the card to go to the project's github repository.</p>
+            <h1 style={{textAlign:'left'}}>My projects</h1>
+            <p style={{textAlign:'left'}}>Click the card to go to the project's github repository.</p>
             <div className="blank-space"> <p></p></div>
             <div className="blank-space"> <p></p></div>
 

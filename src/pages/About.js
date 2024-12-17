@@ -4,7 +4,8 @@ export default function About() {
 
     return (
         <div className="about-container">
-            <h1 style={{textAlign:'left'}}>About Me</h1>
+            <h1 style={{textAlign:'left'}}>About me</h1>
+            <p style={{textAlign:'left'}}>Work and school experience over the last few years.</p>
             <div className="blank-space"> <p></p></div>
             <h2 className="sub-header">Work Experience</h2>
             {/* jobs */}
@@ -47,17 +48,15 @@ export default function About() {
                 <div className="job-company">Simon Fraser University</div>
                 <div className="job-location">Burnaby, BC</div>
             </div>
-            <div className="blank-space"> <p></p></div>
+            {/* <div className="blank-space"> <p></p></div>
             <h2 className="sub-header">Skills</h2>
             <p style={{textAlign:'left'}}>Including some relevant work experience, projects, and courses.</p>
-            {/* skills */}
             
             <div className="skills-section">
                 <div className="skill">
                     <h3>Database Management</h3>
                     <ul>
                         <li>
-                            {/* Database Engineer Intern @ <a href="https://research.samsung.com/srca" target="_blank" rel="noopener noreferrer">Samsung R&D</a>, */}
                         <a href="https://github.com/marcolanfranchi/stock-models" target="_blank" rel="noopener noreferrer">stock-models</a>,
                         <a href="https://www.sfu.ca/students/calendar/2024/fall/courses/cmpt/354.html" target="_blank" rel="noopener noreferrer"> CMPT 354</a>
                         </li>
@@ -96,7 +95,7 @@ export default function About() {
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> */}
             <div className="blank-space"><p></p></div>
             {/* INTERESTS SECTION */}
             {/* <h2 className="sub-header">interests</h2> */}
