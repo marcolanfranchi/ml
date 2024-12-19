@@ -13,7 +13,7 @@
   }
 }
 
-.App-header {
+/* .App-header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,7 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 .App-link {
   color: #61dafb;
@@ -34,5 +34,23 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ensures full height layout */
+  overflow: hidden; /* Prevents unwanted scrolling outside the main content */
+}
+
+
+@media (max-width: 768px) {
+  .App {
+      flex-direction: column;
+  }
+
+  .container {
+      flex-direction: column;
   }
 }

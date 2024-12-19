@@ -1,43 +1,41 @@
-import "./about.css";
+import "./styles/about.css";
 
 export default function About() {
 
     return (
-        <div className="about-container">
-            <h1 style={{textAlign:'left'}}>About me</h1>
-            <p style={{textAlign:'left'}}>Work and school experience over the last few years.</p>
-            <div className="blank-space"> <p></p></div>
-            <h2 className="sub-header">Work Experience</h2>
+        <div>
+            <h2 className="sub">about</h2>
+            <h3 className="subsub">work experience</h3>
             {/* jobs */}
             {/* Samsung */}
             <div className="job-card">
                 <div className="job-header">
-                    <span className="job-title">Database Engineer Intern (Upcoming)</span>
+                    <span className="job-title">Database Engineer Intern @ Samsung R&D (Upcoming)</span>
                     <span className="job-date">Jan 2025 - Aug 2025</span>
                 </div>
-                <div className="job-company">Samsung R&D</div>
+                {/* <div className="job-company">Samsung R&D</div> */}
                 <div className="job-location">Vancouver, BC</div>
             </div>
             {/* Nettwerk */}
             <div className="job-card">
                 <div className="job-header">
-                    <span className="job-title">Data Analyst Intern</span>
+                    <span className="job-title">Data Analyst Intern @ Nettwerk Music Group</span>
                     <span className="job-date">Sept 2023 - May 2024</span>
                 </div>
-                <div className="job-company">Nettwerk Music Group</div>
+                {/* <div className="job-company">Nettwerk Music Group</div> */}
                 <div className="job-location">Vancouver, BC</div>
             </div>
             {/* Industrio */}
             <div className="job-card">
                 <div className="job-header">
-                    <span className="job-title">Volunteer Jr. Data Scientist</span>
+                    <span className="job-title">Volunteer Jr. Data Scientist @ Industrio AI</span>
                     <span className="job-date">Jan 2023 - Apr 2023</span>
                 </div>
-                <div className="job-company">Industrio AI</div>
+                {/* <div className="job-company">Industrio AI</div> */}
                 <div className="job-location">Vancouver, BC</div>
             </div>
-            <div className="blank-space"> <p></p></div>
-            <h2 className="sub-header">Education</h2>
+            <div className="-space"> <p></p></div>
+            <h3 className="subsub">education</h3>
             {/* School */}
             {/* SFU */}
             <div className="school-card">
@@ -96,9 +94,19 @@ export default function About() {
                     </ul>
                 </div>
             </div> */}
-            <div className="blank-space"><p></p></div>
+            {/* <div className="blank-space"><p></p></div> */}
             {/* INTERESTS SECTION */}
             {/* <h2 className="sub-header">interests</h2> */}
+            <div>
+            <div className="blank-space"> <p></p></div>
+            <section className="section">
+                <h3 className="subsub">what i'm currently up to</h3>
+                <ul className="list">
+                    <li>taking linear optimization, R for data science, and a couple other courses at SFU.</li>
+                    <li>working on personal projects and refining database skills in preparation for an internship.</li>
+                </ul>
+            </section>
+        </div>
         </div>
     );
 }

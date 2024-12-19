@@ -1,0 +1,53 @@
+/* General navbar styling */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 150px;
+    padding-left: 20px;
+    padding-top: 32px;
+    justify-content: flex-start;
+}
+
+.nav-link {
+    background: none;
+    border: none;
+    color: #000000;
+    font-family: "courier new", monospace;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    margin: 10px 0; /* Space between links */
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    font-weight: bold;
+}
+
+.nested-links {
+    margin-left: 25px; /* Indent for nested links */
+}
+
+/* Make navbar usable on mobile devices (width <= 768px) */
+@media (max-width: 768px) {
+    .navbar {
+        position: static;
+        width: 100%;
+        background-color: #ffffff;
+        padding: 10px 20px;
+    }
+
+    .nav-link {
+        display: inline-block;
+        margin: 0 10px;
+        text-align: center;
+    }
+
+    .nested-links {
+        margin-left: 0;
+        display: flex;
+        justify-content: space-around;
+    }
+}
