@@ -23,7 +23,7 @@ body {
   align-items: stretch;
   gap: 2rem;
   padding: 0 1rem;
-  transform: scale(0.8);  
+  transform: (0.8);  
 ;
 }
 

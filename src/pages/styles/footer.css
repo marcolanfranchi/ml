@@ -1,0 +1,34 @@
+.footer {
+    background-color: #1a1a1a; /* Dark background */
+    color: #f5f5f5; /* Light text color */
+    text-align: center;
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace; /* Set font to Courier New */
+    font-size: 14px;
+    border-top: 2px solid #333; /* Subtle top border */
+}
+
+.footer p {
+    margin: 0 0 10px;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between icons */
+}
+
+.footer-icons a {
+    color: #f5f5f5; /* Icon color */
+    font-size: 20px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-icons a:hover {
+    color: #4CAF50; /* Highlight color on hover */
+}
+
+.footer-icons i {
+    display: inline-block;
+}
