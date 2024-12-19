@@ -1,5 +1,5 @@
 import './app.css';
-import Navbar from './pages/Navbar';
+import Navbar from './pages/navbar';
 import About from './pages/about';
 import Projects from './pages/projects';
 import Home from './pages/home';
