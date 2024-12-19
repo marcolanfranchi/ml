@@ -1,26 +1,23 @@
-.h1 {
-    font-weight: bold;
+/* List styles */
+.job-list, .education-list {
+    list-style-type: disc; /* Adds bullet points */
+    padding-left: 20px; /* Indent for list items */
 }
 
-.job-card {
-    border: 1px solid black; /* Thin black border */
-    padding: 10px;
-    margin-bottom: 20px; /* Space between job cards */
-    border-radius: 5px; /* Optional: rounded corners for a softer look */
+/* Individual job and education item styling */
+.job-item, .education-item {
+    margin-bottom: 15px; /* Space between items */
 }
 
- /*zoom in on job card on hover  */
-.job-card:hover {
-    transition: transform 0.3s ease;
-}
-
+/* Header styling */
 .job-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
+/* Title and date styling */
 .job-title {
     font-weight: bold;
 }
@@ -30,94 +27,29 @@
     color: gray;
 }
 
-.job-company {
-    text-align: left;
-    font-weight: bold;
-    margin-top: -10px;
-    margin-bottom: 5px;
-    font-style: italic;
-}
-
+/* Location styling */
 .job-location {
-    text-align: left;
     color: gray;
     margin-bottom: 10px;
 }
 
-.job-description {
-    text-align: left;
-    list-style-type: disc;
-    margin-left: 20px;
-    margin-bottom: 10px;
-}
-
-.job-technologies {
-    text-align: left;
-}
-
-.tech-icon {
-    font-size: 1.5em; /* Adjust size as needed */
-    margin-right: 10px;
-    /* color: #000000; Icon color */
-}
-
-.blank-space {
-    margin: 40px;
-}
-
-.school-card {
-    border: 1px solid black; /* Thin black border */
-    padding: 10px;
-    margin-bottom: 20px; /* Space between school cards */
-    border-radius: 5px; /* Optional: rounded corners for a softer look */
-}
-
-.school-card:hover {
-    transition: transform 0.3s ease;
-}
-
-@media (max-width: 600px) {
-    .job-header {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .job-date {
-        margin-top: 5px;
-    }
-}
-
-
-/* New styles for skills section */
-
-.skills-section {
-    margin-top: 20px;
-    text-align: left;
-}
-
-.skill {
-    margin-bottom: 20px;
-}
-
-.skill h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.skill ul {
-    list-style-type: disc;
-    margin: 0 0 0 20px;
-}
-
-.skill ul li {
+/* Company styling for education */
+.job-company {
+    font-weight: bold;
+    font-style: italic;
     margin-bottom: 5px;
 }
 
-.skill ul li a {
-    color: #0066cc;
-    text-decoration: none;
+/* Space between sections */
+.space, .ce {
+    height: 10px;
 }
 
-.skill ul li a:hover {
-    text-decoration: underline;
+.section {
+    margin-top: 20px;
+}
+
+.list {
+    list-style-type: disc; /* Adds bullet points */
+    padding-left: 20px;
 }

@@ -21,7 +21,6 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
 }
 
 /* Smooth scroll */
@@ -30,13 +29,10 @@ html {
 }
 
 /* Highlight active section */
-.home-container.about #about {
-    background-color: #ffffff; /* Subtle background highlight for the 'About' section */
-}
+.home-container.about #about,
 .home-container.projects #projects {
-    background-color: #ffffff; /* Subtle background highlight for the 'Projects' section */
+    background-color: #ffffff;
 }
-
 
 .sub {
     text-align: left;
@@ -56,12 +52,20 @@ html {
     margin-left: 10px;
 }
 
-.subsub{
+.subsub {
     text-align: left;
     font-weight: bold;
     font-style: italic;
     border-bottom: 0px solid #000000;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.subsub::after {
+    content: "";
+    flex-grow: 1;
+    height: 0.5px;
+    background-color: #000000;
+    margin-left: 10px;
 }
 
 .section-container {
@@ -73,8 +77,8 @@ html {
 .typing-effect {
     font-size: 1em;
     margin-top: 20px;
-    display: inline; /* Ensures cursor stays on the same line */
-    white-space: pre-wrap; /* Allows text to wrap properly */
+    display: inline;
+    white-space: pre-wrap;
 }
 
 .cursor {
@@ -82,8 +86,8 @@ html {
     font-size: 1em;
     color: black;
     display: inline-block;
-    vertical-align: baseline; /* Align cursor properly */
-    animation: blink 0.7s steps(2, start) infinite; /* Cursor blinking effect */
+    vertical-align: baseline;
+    animation: blink 0.7s steps(2, start) infinite;
 }
 
 @keyframes blink {
@@ -94,7 +98,6 @@ html {
 
 .grid-container {
     display: grid;
-    display: flex;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     margin-top: 20px;
@@ -141,12 +144,52 @@ html {
     margin-top: 30px;
 }
 
-@media (max-width: 400px) {
+/* Responsive design for tablets and smaller devices */
+@media (max-width: 1100px) {
     .grid-container {
-        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 10px;
+        padding: 0 10px;
     }
 
     .home-container {
-        padding: 10px;
+        padding: 25px;
+    }
+
+    .sub, .subsub {
+        font-size: 1.2em;
+    }
+
+    .typing-effect {
+        font-size: 0.9em;
+    }
+}
+
+/* Responsive design for mobile phones */
+@media (max-width: 480px) {
+    .grid-container {
+        gap: 10px;
+        margin-top: 10px;
+        padding: 0 10px;
+    }
+
+    .grid-item img {
+        aspect-ratio: auto; /* Avoid cropping on smaller screens */
+    }
+
+    .home-container {
+        padding: 25px;
+    }
+
+    .home-container h1 {
+        font-size: 1.4em;
+    }
+
+    .sub, .subsub {
+        font-size: 1em;
+    }
+
+    .typing-effect {
+        font-size: 0.8em;
     }
 }

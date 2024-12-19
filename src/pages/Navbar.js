@@ -32,13 +32,13 @@ export default function Navbar() {
                     onClick={() => scrollToSection("about")}
                     className="nav-link"
                 >
-                    &gt; about
+                    &gt; about 
                 </button>
                 <button
                     onClick={() => scrollToSection("contact")}
                     className="nav-link"
                 >
-                    &gt; contact
+                    &gt; contact 
                 </button>
             </div>
         </nav>
