@@ -1,6 +1,6 @@
 # ml
 
-This is my personal/portfolio website. [View it here.](https://marcolanfranchi.github.io/ml)
+This is my personal website developed in React.js. [View it here.](https://marcolanfranchi.github.io/ml)
 
 ## Available Scripts
 

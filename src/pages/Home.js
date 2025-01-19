@@ -7,7 +7,7 @@ import Contact from './contact';
 export default function Home() {
     const [activeSection, setActiveSection] = useState('');
     const [text, setText] = useState(''); // State to hold the typed text
-    const fullText = 'currently in my 4th year of a BSc in data science at SFU.'; // Full text to be typed
+    const fullText = "I am in my 4th year of a BSc in Data Science at SFU, focusing on database systems and cloud computing.";
 
     // Typing effect logic
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function Home() {
             if (index === fullText.length-1) {
                 clearInterval(intervalId); // Stop when the full text is typed
             }
-        }, 75); // Adjust typing speed here (100ms per character)
+        }, 50); // Adjust typing speed here (100ms per character)
 
         return () => clearInterval(intervalId); // Clean up the interval on component unmount
     }, []);
