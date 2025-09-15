@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Hero SECTION -->
+<div class="hero-content">
+    <h1 class="hero-title">{{ data.name }}</h1>
+    <p class="hero-description">{{ data.hero_description }}</p>
+    
+    <div class="hero-contact">
+        <span>Vancouver, BC</span>
+        <!-- <span class="separator">•</span>
+        <span> {{ data.email }} </span> -->
+        <span class="separator">•</span>
+        <a href="{{ data.github }}" target="_blank">GitHub</a>
+        <span class="separator">•</span>
+        <a href="{{ data.linkedin }}" target="_blank">LinkedIn</a>
+    </div>
+</div>
+
+<!-- Experience SECTION -->
+<div class="section" id="experience">
+    <h1 class="section-title">Experience</h1>
+    
+    <h2 class="section-subtitle">Work</h2>
+    <div class="timeline-group">
+        {% for internship in data.internships %}
+        <div class="timeline-item">
+            <h3>{{ internship.title }}, {{ internship.company }}</h3>
+            <span class="meta">{{ internship.duration }}</span>
+            <p>{{ internship.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <h2 class="section-subtitle">Education</h2>
+    <div class="timeline-group">
+        {% for edu in data.education %}
+        <div class="timeline-item">
+            <h3>{{ edu.degree }}, {{ edu.school }}</h3>
+            <span class="meta">{{ edu.year }}</span>
+            <p>{{ edu.description }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h2 class="section-subtitle">Volunteering</h2>
+    <div class="timeline-group">
+        {% for vol in data.volunteering %}
+        <div class="timeline-item">
+            <h3>{{ vol.title }}, {{ vol.company }}</h3>
+            <span class="meta">{{ vol.duration }}</span>
+            <p>{{ vol.description }}</p>
+        </div>
+        {% endfor %}
+</div>
+
+<!-- Projects SECTION -->
+<div class="section" id="projects">
+    <h1 class="section-title">Projects</h1>
+    <div class="project-list">
+        {% for project in data.projects %}
+        <div class="project-item">
+            <div class="project-info">
+                <h3>
+                    {{ project.title }}:
+                    <span class="project-description">{{ project.description }}</span>
+                </h3>
+                <div class="project-links">
+                    <a href="{{ project.github }}" target="_blank">GitHub</a>
+                    {% if project.website %}
+                    <span class="separator">•</span>
+                    <a href="{{ project.website }}" target="_blank">Website</a>
+                    {% endif %}
+                </div>
+                <div class="tags">
+                    {% for tech in project.tech %}
+                    <span class="skill-tag">{{ tech }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% if project.demo %}
+            <div class="project-media">
+                <img src="{{ project.demo }}" alt="{{ project.title }} demo">
+            </div>
+            {% endif %}
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% endblock %}
