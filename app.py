@@ -62,21 +62,21 @@ portfolio_data = {
             'tech': ["React.js", "Firebase", "Vercel"],
             'github': 'https://github.com/marcolanfranchi/iammusic-template',
             'website': 'https://iammusic-template.vercel.app',
-            'demo': 'images/iamt.png'
+            'demo': 'static/images/iamt.png'
         },
         {
             'title': 'digit-recognition-from-scratch',
             'description': 'An interactive app for real-time handwritten digit classification, powered by a custom K-nearest neighbors implementation in Python.',
             'tech': ["K-nearest neighbors", "Python", "NumPy", "Streamlit"],
             'github': 'https://github.com/marcolanfranchi/digit-recognition-from-scratch',
-            'demo': 'images/knn.png'
+            'demo': 'static/images/knn.png'
         },
         {
             'title': 'aita-predictor',
             'description': 'A machine learning model that classifies r/AmItheA-hole Reddit posts using an ensemble of classifiers built on vector embeddings and large-scale PySpark text processing. Presented with a Streamlit demo UI for interactive exploration.',
             'tech': ["NLP", "PySpark", "Scikit-learn", "Streamlit"],
             'github': 'https://github.com/marcolanfranchi/aita-predictor',
-            'demo': 'images/aita.png'
+            'demo': 'static/images/aita.png'
         },
     ],
     
