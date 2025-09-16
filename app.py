@@ -59,7 +59,7 @@ portfolio_data = {
         {
             'title': 'iammusic-template',
             'description': 'Web app that lets users generate custom versions of a popular artist’s album cover. At its peak, it drew over 200k visitors in a single month and has accumulated nearly 500k submissions stored in its NoSQL cloud database. The app spread widely across Instagram memes and still receives ~1k daily visitors.',
-            'tech': [],
+            'tech': ["React.js", "Firebase", "Vercel"],
             'github': 'https://github.com/marcolanfranchi/iammusic-template',
             'website': 'https://iammusic-template.vercel.app',
             'demo': 'images/iamt.png'
@@ -67,28 +67,28 @@ portfolio_data = {
         {
             'title': 'digit-recognition-from-scratch',
             'description': 'An interactive app for real-time handwritten digit classification, powered by a custom K-nearest neighbors implementation in Python.',
-            'tech': [],
+            'tech': ["K-nearest neighbors", "Python", "NumPy", "Streamlit"],
             'github': 'https://github.com/marcolanfranchi/digit-recognition-from-scratch',
             'demo': 'images/knn.png'
         },
         {
             'title': 'aita-predictor',
             'description': 'A machine learning model that classifies r/AmItheA-hole Reddit posts using an ensemble of classifiers built on vector embeddings and large-scale PySpark text processing. Presented with a Streamlit demo UI for interactive exploration.',
-            'tech': [],
+            'tech': ["NLP", "PySpark", "Scikit-learn", "Streamlit"],
             'github': 'https://github.com/marcolanfranchi/aita-predictor',
             'demo': 'images/aita.png'
         },
     ],
     
-    # 'blog_posts': [
-    #     {
-    #         'id': 'getting-started-with-machine-learning',
-    #         'title': 'Getting Started with Machine Learning',
-    #         'date': '2025-01-15',
-    #         'excerpt': 'A beginner-friendly guide to understanding the fundamentals of machine learning and how to get started with your first project.',
-    #         'tags': ['Machine Learning', 'Beginner', 'Python']
-    #     },
-    # ]
+    'blog_posts': [
+        # {
+        #     'id': 'getting-started-with-machine-learning',
+        #     'title': 'Getting Started with Machine Learning',
+        #     'date': '2025-01-15',
+        #     'excerpt': 'A beginner-friendly guide to understanding the fundamentals of machine learning and how to get started with your first project.',
+        #     'tags': ['Machine Learning', 'Beginner', 'Python']
+        # },
+    ]
 }
 
 @app.route('/')

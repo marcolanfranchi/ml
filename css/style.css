@@ -60,7 +60,7 @@ a:hover {
 
 .nav-container {
     width: 100%;
-    max-width: 700px;
+    max-width: 800px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -86,14 +86,15 @@ a:hover {
 
 /* Main content */
 .main-content {
-    max-width: 700px;
-    margin: 60px auto 0;
+    max-width: 800px;
+    margin: 40px auto 0;
     padding: 1rem 1.5rem;
 }
 
 .section {
     margin-bottom: 2.5rem;
     scroll-margin-top: 80px;
+    min-height: calc(100vh - 60px);
 }
 
 .section-title {
