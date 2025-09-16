@@ -1,0 +1,212 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - {{ data.name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+            line-height: 1.4;
+            color: #37352f;
+            background-color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .blog-container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem;
+        }
+        
+        .blog-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e1e5e9;
+        }
+        
+        .blog-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: #37352f;
+        }
+        
+        .blog-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-date {
+            color: #787774;
+            font-size: 0.9rem;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .blog-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .blog-tag {
+            background: #f1f1ef;
+            color: #37352f;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            border: 1px solid #e1e5e9;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .blog-content {
+            font-size: 0.98rem;
+            line-height: 1.55;
+            color: #4b4b47;
+        }
+        
+        .blog-content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            color: #37352f;
+        }
+
+        .blog-home-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #37352f;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .blog-home-link:hover {
+            color: #000000;
+            border-bottom-color: #37352f;
+        }
+        
+        .blog-content h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 1.5rem 0 0.75rem 0;
+            color: #37352f;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-content ul, .blog-content ol {
+            margin: 1rem 0 1rem 2rem;
+        }
+        
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .blog-content code {
+            background: #f1f1ef;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .blog-content pre {
+            background: #f1f1ef;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .blog-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .blog-content blockquote {
+            border-left: 3px solid #e1e5e9;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #787774;
+        }
+        
+        @media (max-width: 768px) {
+            .blog-container {
+                padding: 2rem 1rem;
+            }
+            
+            .blog-title {
+                font-size: 2rem;
+            }
+            
+            .blog-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blog-container">
+        <a class="blog-home-link" href="{{ url_for('blog') }}">← Back to Blog</a>
+        <header class="blog-header">
+            <h1 class="blog-title">{{ post.title }}</h1>
+            <div class="blog-meta">
+                <span class="blog-date">{{ post.date }}</span>
+                <div class="blog-tags">
+                    {% for tag in post.tags %}
+                    <span class="blog-tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </header>
+        
+        <article class="blog-content">
+            <p>This is a placeholder for your blog post content. You can write your blog posts in HTML format and include them here.</p>
+            
+            <h2>Example Section</h2>
+            <p>You can structure your blog posts with headings, paragraphs, lists, and other HTML elements. The styling is minimal and clean, perfect for reading.</p>
+            
+            <h3>Code Examples</h3>
+            <p>For code snippets, you can use the <code>code</code> tag for inline code or <code>pre</code> blocks for longer code examples:</p>
+            
+            <pre><code>import pandas as pd
+import numpy as np
+
+# Your code here
+df = pd.DataFrame(data)
+print(df.head())</code></pre>
+            
+            <h3>Lists and Formatting</h3>
+            <ul>
+                <li>Bullet points work well for lists</li>
+                <li>You can emphasize <strong>important text</strong></li>
+                <li>And add <em>italic text</em> when needed</li>
+            </ul>
+            
+            <blockquote>
+                This is a blockquote for highlighting important quotes or key insights from your blog post.
+            </blockquote>
+            
+            <p>When you're ready to write your actual blog posts, simply replace this placeholder content with your real content in HTML format.</p>
+        </article>
+    </div>
+</body>
+</html> -->

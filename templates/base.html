@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ data.name }} - Portfolio{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+</head>
+<body class="{{ request.endpoint }}">
+    <div class="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="nav-link">mlanfranchi.xyz</a>
+            {% if request.endpoint not in ['blog', 'blog_post'] %}
+            <ul class="nav-menu">
+                <li class="nav-link">
+                    <a href="#experience" class="nav-link">Experience</a>
+                </li>
+                <li class="nav-link">
+                    <a href="#projects" class="nav-link">Projects</a>
+                </li>
+                <!-- <li class="nav-link">
+                    <a href="{{ url_for('blog') }}" class="nav-link{% if request.endpoint == 'blog' %} active{% endif %}">Blog</a>
+                </li> -->
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
