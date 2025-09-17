@@ -10,7 +10,7 @@ portfolio_data = {
     'name': 'Marco Lanfranchi',
     'email': 'marcolanfranchi02 [at] gmail [dot] com',
     'github': 'https://github.com/marcolanfranchi',
-    'linkedin': 'https://linkedin.com/in/marcolanfranchi',
+    'linkedin': 'https://linkedin.com/in/marco--lanfranchi',
     'hero_description': "4th year Data Science student at SFU. I've done work in database management, software development, and data science.",
     'education': [
         {
