@@ -1,15 +1,10 @@
-name: Deploy to GitHub Pages
+name: Deploy to Main GitHub Pages Site
 
 on:
   push:
     branches:
       - main
       - master
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
 
 jobs:
   build:
@@ -34,18 +29,12 @@ jobs:
       - name: Generate static site
         run: python3 build.py
 
-      - name: Upload build artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: build
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to marcolanfranchi.github.io
+        run: |
+          cd build
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Deploy site"
+          git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/marcolanfranchi/marcolanfranchi.github.io.git" main
