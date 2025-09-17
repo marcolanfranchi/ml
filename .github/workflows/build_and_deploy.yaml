@@ -37,5 +37,5 @@ jobs:
           git config user.email "actions@github.com"
           git add .
           git commit -m "Deploy site"
-          git branch -M main  
-          git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/marcolanfranchi/marcolanfranchi.github.io.git" main
+          git branch -M main
+          git push --force "https://${{ secrets.GH_PAGES_PAT }}@github.com/marcolanfranchi/marcolanfranchi.github.io.git" main
