@@ -59,7 +59,7 @@ portfolio_data = {
         {
             'title': 'iammusic-template',
             'description': 'Web app that lets users generate custom versions of a popular artist’s album cover. At its peak, it drew over 200k visitors in a single month and has accumulated nearly 500k submissions stored in its NoSQL cloud database. The app spread widely across Instagram memes and still receives ~1k daily visitors.',
-            'tech': ["React.js", "Firebase", "Vercel"],
+            'tech': ["React.js", "Node.js", "Firebase", "Vercel"],
             'github': 'https://github.com/marcolanfranchi/iammusic-template',
             'website': 'https://iammusic-template.vercel.app',
             'demo': 'static/images/iamt.png'
