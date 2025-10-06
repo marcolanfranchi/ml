@@ -102,11 +102,14 @@
                     <img src="{{ project.demo }}" alt="{{ project.title }} demo" onclick="openModal(this)">
                 </div>
             {% endif %}
-            <div id="imgModal" class="img-modal" onclick="closeModal()">
-                <img id="modalImg" class="img-modal-content" alt="">
-            </div>
         </div>
         {% endfor %}
+
+        <!-- Move the modal OUTSIDE the loop -->
+        <div id="imgModal" class="img-modal" onclick="closeModal()">
+            <img id="modalImg" class="img-modal-content" alt="">
+        </div>
+
     </div>
 </div>
 
