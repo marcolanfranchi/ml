@@ -32,6 +32,7 @@ jobs:
       - name: Deploy to marcolanfranchi.github.io
         run: |
           cd build
+          echo "mlanfranchi.xyz" > CNAME # preserve custom domain
           git init
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
