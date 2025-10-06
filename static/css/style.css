@@ -5,31 +5,33 @@
 }
 
 body {
-    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-    line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.25;
     color: #111111;
-    background-color: #ffffff;
+    background-color: #fefefe;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     line-height: 1.25;
-    margin-bottom: 0.5rem;
     color: #111111;
 }
 
-h1 { font-size: 1.4rem; font-weight: 600; }
-h2 { font-size: 1.1rem; font-weight: 500; }
+h1 { font-size: 1.3rem; font-weight: 600; }
+h2 { font-size: 1.1rem; font-weight: 300; }
 h3 { font-size: 1rem; font-weight: 500; }
 
 p {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.3rem;
     color: #666666;
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.35;
 }
 
 a {
@@ -45,8 +47,8 @@ a:hover {
 
 /* Navbar */
 .navbar {
-    background: #f8f8f8;
-    border-bottom: 1px solid #e5e5e5;
+    background: #eeeeee;
+    border-bottom: 1px solid #e2e2e2;
     position: fixed;
     top: 0;
     left: 0;
@@ -89,36 +91,44 @@ a:hover {
     max-width: 800px;
     margin: 40px auto 0;
     padding: 1rem 1.5rem;
+    scroll-behavior: smooth;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .section {
     margin-bottom: 2.5rem;
     scroll-margin-top: 80px;
-    min-height: calc(100vh - 60px);
+}
+
+.section:last-of-type {
+    min-height: 85vh;
 }
 
 .section-title {
-    font-size: 1.1rem;
     margin-bottom: 1rem;
     color: #111111;
     font-weight: 600;
+    border-bottom: 1px solid #e5e5e5;
+    padding-bottom: 0.3rem;
+    padding-top: 0.3rem;
 }
 
 .section-subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 0.6rem;
-    color: #111111;
-    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #666666;
     font-style: italic;
 }
 
 /* Hero section */
 .hero-content {
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .hero-title {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: 600;
     margin-bottom: 0.4rem;
     color: #111111;
@@ -127,14 +137,12 @@ a:hover {
 .hero-description {
     font-size: 0.95rem;
     color: #666666;
-    line-height: 1.5;
     margin-bottom: 0.8rem;
 }
 
 .hero-contact {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #666666;
-    line-height: 1.5;
 }
 
 .separator {
@@ -142,95 +150,106 @@ a:hover {
     color: #cccccc;
 }
 
-/* Timeline items */
+/* Timeline items (used for both experience and projects) */
+.timeline-group {
+    display: flex;
+    flex-direction: column;
+}
+
 .timeline-item {
-    margin-bottom: 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
 }
 
 .timeline-group .timeline-item:last-child {
-    border-bottom: none;
     padding-bottom: 1rem;
 }
 
 .timeline-item h3 {
     margin-bottom: 0.3rem;
     color: #111111;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .timeline-item .meta {
     color: #666666;
     font-size: 0.85rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.45rem;
     display: block;
 }
 
-/* Skills */
+.timeline-item p {
+    margin-bottom: 0.5rem;
+}
+
+.project-list .meta {
+    margin-top: 0.25rem;          
+    margin-bottom: 0.5rem;        /* same rhythm as experience meta */
+}
+
+/* Project-specific layout additions */
+.project-list .timeline-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: start;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+}
+
+.project-list .timeline-item:last-child {
+    padding-bottom: 1rem; /* match experience last item */
+}
+
+.project-media {
+    width: 140px;
+    aspect-ratio: 4 / 3; /* wider shape */
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+    flex-shrink: 0;
+    background: #f9f9f9;
+    margin-top: 20px;
+}
+
+.project-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.25s ease;
+}
+
+.project-media img:hover {
+    transform: scale(1.05);
+}
+
+/* Tags/Skills */
 .tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
-    margin: 0.6rem 0;
+    font-size: 0.85rem;
+    color: #666666;
+    margin-top: 0.25rem;
 }
 
 .skill-tag {
-    background-color: #f8f8f8;
-    border: 1px solid #e5e5e5;
+    background-color: #eeeeee;
+    border: 1px solid #e2e2e2;
     border-radius: 20px;
     padding: 0.3rem 0.7rem;
     font-size: 0.8rem;
     color: #666666;
     white-space: nowrap;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Projects */
-.project-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.project-item {
-    display: grid;
-    grid-template-columns: 480px 1fr;
-    gap: 1rem;
-    align-items: start;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.project-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
-.project-media img {
-    width: 100%;
-    border-radius: 6px;
-    border: 1px solid #e5e5e5;
-    object-fit: cover;
-    max-width: 120px;
-    max-height: 120px;
-}
-
-.project-info h3 {
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    margin-bottom: 0.35rem;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #111;
-}
-
-.project-info .project-description {
-    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-    font-size: 0.9rem;
-    font-weight: 400;
-    color: #666666;
-}
-
-.project-links {
-    font-size: 0.85rem;
+.skill-tag:hover {
+    background-color: #e0e0e0;
+    border-color: #cccccc;
+    cursor: default;
 }
 
 /* Footer */
@@ -245,6 +264,30 @@ a:hover {
 
 .footer-content {
     padding: 0.75rem;
+}
+
+.img-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 2000;
+    padding-top: 4rem;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.75);
+    cursor: zoom-out;
+}
+
+.img-modal-content {
+    display: block;
+    margin: auto;
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease;
 }
 
 /* Responsive */
@@ -263,10 +306,6 @@ a:hover {
         gap: 1rem;
     }
 
-    .separator {
-        display: none;
-    }
-
     .hero-contact a,
     .hero-contact span {
         display: inline-block;
@@ -283,7 +322,7 @@ a:hover {
         padding: 0.25rem 0.6rem;
     }
 
-    .project-item {
+    .project-list .timeline-item {
         grid-template-columns: 1fr;
     }
 }

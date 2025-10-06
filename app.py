@@ -11,13 +11,16 @@ portfolio_data = {
     'email': 'marcolanfranchi02 [at] gmail [dot] com',
     'github': 'https://github.com/marcolanfranchi',
     'linkedin': 'https://linkedin.com/in/marco--lanfranchi',
-    'hero_description': "4th year Data Science student at SFU. I've done work in database management, software development, and data science.",
+    'hero_description': "4th year data science student at SFU with database, \
+                            software development, and data science experience. Looking for opportunities in \
+                                machine learning engineering.",
     'education': [
         {
             'degree': 'BSc in Data Science',
             'school': 'Simon Fraser University',
-            'year': 'Sept 2022 - Apr 2026',
-            'description': ''
+            'date': 'Sept 2022 - Apr 2026',
+            'description': 'Relevant courses include: Data Structures & Algorithms, Computational Data Science, \
+                Database Systems, Intro to AI, Linear Algebra, Statistical Learning and Prediction, .'
         },
     ],
     
@@ -25,58 +28,89 @@ portfolio_data = {
         {
             'title': 'Database Engineer Intern',
             'company': 'Samsung R&D Canada',
-            'duration': 'Jan 2025 - Aug 2025',
-            'description': "Developed and deployed a platform that automated database account management across PostgreSQL, MySQL, Redshift, and MongoDB databases. Implemented all app functionality and introduced automated account lifecycles with password rotations and account expirations which eliminated 25%+ of DBA tickets for the company."
+            'date': 'Jan 2025 - Aug 2025',
+            'description': "Developed and deployed a platform that automated database account management across \
+                PostgreSQL, MySQL, Redshift, and MongoDB databases. Implemented all app functionality and \
+                    introduced automated account lifecycles with password rotations and account expirations which \
+                        eliminated over a quarter of DBA tickets.",
+            'tech': ["MongoDB", "PostgreSQL", "MySQL", "Redshift", "Python", "Bash", "AWS", "Boto3", "Terraform", "Docker", "GitHub Actions"]
         },
         {
             'title': 'Data Analyst Intern',
             'company': 'Nettwerk Music Group',
-            'duration': 'Sept 2023 - May 2024',
-            'description': "Applied statistical analysis and machine learning techniques to streaming and social media data for 100s of artists under an independent label. Developed dashboards for geospatial audience streaming analytics, fraudulent stream detection, and pipelines that transformed raw streaming data into reports and visualizations."
+            'date': 'Sept 2023 - May 2024',
+            'description': "Applied statistical analysis and machine learning techniques to streaming and social media data \
+                for 100s of artists under an independent label. Developed dashboards for geospatial audience streaming \
+                    analytics, fraudulent stream detection, and pipelines that transformed raw streaming data into reports \
+                        and visualizations.",
+            'tech': ["Snowflake", "SQL", "Tableau", "Python", "Scikit-learn", "Data Visualization", "Geospatial Analysis", 
+                     "Regression Analysis"]
         }
     ],
     'volunteering': [
         {
             'title': 'Volunteer Jr. Data Scientist',
             'company': 'Industrio AI',
-            'duration': 'Jan 2023 - Apr 2023',
-            'description': "Worked with a small team of data scientists and developers to build full-stack applications for fuel cell engineering clients, contributing front-end features and interactive visualizations using Python, Streamlit, Plotly, TypeScript, and Vue.js."
+            'date': 'Jan 2023 - Apr 2023',
+            'description': "Worked with a small team of data scientists and developers to build full-stack applications \
+                for fuel cell engineering clients, contributing front-end features and interactive visualizations using \
+                    Python, Streamlit, Plotly, TypeScript, and Vue.js.",
+            'tech': ["Azure", "PostgreSQL", "Python", "Plotly", "Streamlit", "TypeScript", "Vue.js", "Figma"]
         },
         {
             'title': 'Research Associate',
             'company': 'Dr. Matt Lowe, UBC School of Economics',
-            'duration': 'Jan 2021 - Aug 2021',
-            'description': "Collaborated as an undergraduate research associate collecting data for Dr. Matt Lowe’s research project: 'Do Virtue Signals Signal Virtue?'."
+            'date': 'Jan 2021 - Aug 2021',
+            'description': "Collaborated as an undergraduate research associate collecting data for Dr. Matt Lowe’s \
+                research project: 'Do Virtue Signals Signal Virtue?'."
         }
     ],
     
-    # 'skills': [
-    #     'Python', 'Machine Learning', 'Data Analysis', 'SQL', 'Pandas', 'NumPy', 'Scikit-learn',
-    #     'Data Visualization', 'Git', 'Docker', 'AWS', 'Jupyter Notebooks'
-    # ],
-    
     'projects': [
         {
-            'title': 'iammusic-template',
-            'description': 'Web app that lets users generate custom versions of a popular artist’s album cover. At its peak, it drew over 200k visitors in a single month and has accumulated nearly 500k submissions stored in its NoSQL cloud database. The app spread widely across Instagram memes and still receives ~1k daily visitors.',
-            'tech': ["React.js", "Node.js", "Firebase", "Vercel"],
-            'github': 'https://github.com/marcolanfranchi/iammusic-template',
-            'website': 'https://iammusic-template.vercel.app',
-            'demo': 'static/images/iamt.png'
+            'title': 'LISA (Labeled Identification of Speaker\'s Audio)',
+            'description': 'End-to-end machine learning project that identifies who\'s speaking from audio clips. \
+                Built a data pipeline with speaker diarization, audio preprocessing, and feature extraction. \
+                Working on model training, evaluation, and a real-time speaker identification demo interface.',
+            'tech': ["Python", "Librosa", "FFmpeg", "pyannote.audio", "Scikit-learn"],
+            'github': 'https://github.com/marcolanfranchi/lisa',
+            'demo': 'static/images/lisadiagramwhite.png',
         },
         {
-            'title': 'digit-recognition-from-scratch',
-            'description': 'An interactive app for real-time handwritten digit classification, powered by a custom K-nearest neighbors implementation in Python.',
-            'tech': ["K-nearest neighbors", "Python", "NumPy", "Streamlit"],
-            'github': 'https://github.com/marcolanfranchi/digit-recognition-from-scratch',
-            'demo': 'static/images/knn.png'
+            'title': 'spotify-history',
+            'description': 'Background service that archives your Spotify listening history into a local SQLite \
+                database and sends you daily listening summaries by email. Designed for easy set-up and to run indefinitely \
+                    (I\'m running it from an old Raspberry Pi).',
+            'tech': ["Python", "SQLite3", "Spotify API", "Cron", "Shell Scripting"],
+            'github': 'https://github.com/marcolanfranchi/spotify-history',
+            'demo': 'static/images/pi.png',
+        },
+        {
+            'title': 'iammusic-template',
+            'description': 'Web app that lets users generate custom versions of a popular album cover. \
+                At its peak, it reached over 200k visitors in a single month and has processed over 500k submissions \
+                    through a custom API and NoSQL cloud database. Still receives ~1k daily visitors to date.',
+            'tech': ["React.js", "Next.js", "Firebase", "Vercel", "GCP"],
+            'github': 'https://github.com/marcolanfranchi/iammusic-template',
+            'website': 'https://iammusic-template.vercel.app',
+            'demo': 'static/images/iamt.png',
+        },
+        {
+            'title': 'written-digit-recognition',
+            'description': 'Interactive app for handwritten digit classification, built with a custom K-nearest neighbors \
+                implementation from scratch in Python.',
+            'tech': ["Python", "NumPy", "Plotly", "Streamlit"],
+            'github': 'https://github.com/marcolanfranchi/written-digit-recognition',
+            'demo': 'static/images/knn.png',
         },
         {
             'title': 'aita-predictor',
-            'description': 'A machine learning model that classifies r/AmItheA-hole Reddit posts using an ensemble of classifiers built on vector embeddings and large-scale PySpark text processing. Presented with a Streamlit demo UI for interactive exploration.',
-            'tech': ["NLP", "PySpark", "Scikit-learn", "Streamlit"],
+            'description': 'A machine learning model that classifies r/AmItheA-hole Reddit posts using an ensemble of \
+                classifiers built on vector embeddings and large-scale PySpark text processing. Includes a Streamlit UI \
+                    for interactive exploration and testing.',
+            'tech': ["Python", "PyTorch", "PySpark", "Scikit-learn", "Streamlit", "OpenAI API"],
             'github': 'https://github.com/marcolanfranchi/aita-predictor',
-            'demo': 'static/images/aita.png'
+            'demo': 'static/images/aita2.png',
         },
     ],
     
