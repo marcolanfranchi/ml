@@ -1,1 +1,1 @@
-personal website
+personal website made with Python/Flask/HTML/CSS & deployed with GitHub pages.

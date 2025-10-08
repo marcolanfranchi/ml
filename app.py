@@ -20,7 +20,7 @@ portfolio_data = {
             'school': 'Simon Fraser University',
             'date': 'Sept 2022 - Apr 2026',
             'description': 'Relevant courses include: Data Structures & Algorithms, Computational Data Science, \
-                Database Systems, Computer Systems, Intro to AI, Linear Algebra, Statistical Learning and Prediction, \
+                Database Systems, Computer Systems, Intro to AI, Linear Algebra, Statistical Learning & Prediction, \
                     Linear Optimization, and Discrete Mathematics.'
         },
     ],
