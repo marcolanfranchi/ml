@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: "Inter";
+    font-family: "arial", sans-serif;
     line-height: 1.25;
     color: #111111;
     background-color: #fefefe;
@@ -18,19 +18,19 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Inter";
+    font-family: "arial", sans-serif;
     line-height: 1.25;
     color: #111111;
 }
 
-h1 { font-size: 1.3rem; font-weight: 600; }
-h2 { font-size: 1.1rem; font-weight: 300; }
-h3 { font-size: 1rem; font-weight: 500; }
+h1 { font-size: 1.2rem; font-weight: 600; }
+h2 { font-size: 1rem; font-weight: 300; }
+h3 { font-size: 0.95rem; font-weight: 500; }
 
 p {
     margin-bottom: 0.3rem;
     color: #666666;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     line-height: 1.35;
 }
 
@@ -62,7 +62,7 @@ a:hover {
 
 .nav-container {
     width: 100%;
-    max-width: 800px;
+    max-width: 900px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -76,7 +76,7 @@ a:hover {
 }
 
 .nav-link {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #666666;
     transition: color 0.2s ease;
 }
@@ -86,9 +86,52 @@ a:hover {
     color: #111111;
 }
 
+/* Dropdown menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    border: 1px solid #e2e2e2;
+    border-radius: 4px;
+    z-index: 1001;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+}
+
+.dropdown-content a {
+    color: #666666;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.8rem;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #eeeeee;
+    color: #111111;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:focus-within .dropdown-content {
+    display: block;
+}
+
 /* Main content */
 .main-content {
     max-width: 800px;
+    min-width: 800px;
     margin: 40px auto 0;
     padding: 1rem 1.5rem;
     scroll-behavior: smooth;
@@ -100,6 +143,12 @@ a:hover {
 .section {
     margin-bottom: 2.5rem;
     scroll-margin-top: 80px;
+}
+
+/* Ensure home section has proper spacing */
+#home {
+    margin-top: 0;
+    padding-top: 0;
 }
 
 .section:last-of-type {
@@ -124,24 +173,25 @@ a:hover {
 
 /* Hero section */
 .hero-content {
+    margin-top: 4rem; /* Add this to create space above */
     margin-bottom: 2.5rem;
 }
 
 .hero-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.4rem;
     color: #111111;
 }
 
 .hero-description {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #666666;
     margin-bottom: 0.8rem;
 }
 
 .hero-contact {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #666666;
 }
 
@@ -168,13 +218,13 @@ a:hover {
 .timeline-item h3 {
     margin-bottom: 0.3rem;
     color: #111111;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 500;
 }
 
 .timeline-item .meta {
     color: #666666;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     margin-bottom: 0.45rem;
     display: block;
 }
@@ -230,7 +280,7 @@ a:hover {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #666666;
     margin-top: 0.25rem;
 }
@@ -240,7 +290,7 @@ a:hover {
     border: 1px solid #e2e2e2;
     border-radius: 20px;
     padding: 0.3rem 0.7rem;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #666666;
     white-space: nowrap;
     transition: background-color 0.2s ease, border-color 0.2s ease;
@@ -293,6 +343,7 @@ a:hover {
 /* Responsive */
 @media (max-width: 768px) {
     .main-content {
+        min-width: 100%;
         padding: 1.25rem 1rem;
         max-width: none;
     }

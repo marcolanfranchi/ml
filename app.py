@@ -69,7 +69,7 @@ portfolio_data = {
     
     'projects': [
         {
-            'title': 'LISA (Labeled Identification of Speaker\'s Audio)',
+            'title': 'LISA (Labeled Identification of Speaker\'s Audio Model)',
             'description': 'End-to-end machine learning project that identifies who\'s speaking from audio clips. \
                 Built a data pipeline with speaker diarization, audio preprocessing, and feature extraction. \
                 Working on model training, evaluation, and a real-time speaker identification demo interface.',
@@ -123,6 +123,19 @@ portfolio_data = {
         #     'excerpt': 'A beginner-friendly guide to understanding the fundamentals of machine learning and how to get started with your first project.',
         #     'tags': ['Machine Learning', 'Beginner', 'Python']
         # },
+    ],
+    
+    'zines': [
+        {
+            'id': 'cypherpunks-origins',
+            'title': 'Cypherpunks: The Origins of Digital Resistance',
+            'date': 'Oct 2025',
+            'description': 'A zine about the origins of the cypherpunk movement. Made as part of SFU\'s PUB 448 course.',
+            'images_folder': 'cypherpunksorigins-zine',  # This will be used as /static/pages/
+            'cover_image': 'FRONT.png',
+            'template': 1,  # EZM template number (1-8)
+            'pages': ['FRONT.png', 'INNERFRONT.png', '1.png', '2.png', '3.png', '4.png', '5.png', 'BACK.png']
+        }
     ]
 }
 
@@ -130,22 +143,25 @@ portfolio_data = {
 def index():
     return render_template('index.html', data=portfolio_data)
 
-@app.route('/blog')
-def blog():
-    return render_template('blog.html', data=portfolio_data)
+@app.route('/zines')
+def zines():
+    return render_template('zines.html', data=portfolio_data)
 
-@app.route('/blog/<post_id>')
-def blog_post(post_id):
-    post = next((p for p in portfolio_data['blog_posts'] if p['id'] == post_id), None)
-    if post:
-        return render_template('blog_post.html', post=post, data=portfolio_data)
-    return "Blog post not found", 404
+# @app.route('/blog')
+# def blog():
+#     return render_template('blog.html', data=portfolio_data)
+
+# @app.route('/blog/<post_id>')
+# def blog_post(post_id):
+#     post = next((p for p in portfolio_data['blog_posts'] if p['id'] == post_id), None)
+#     if post:
+#         return render_template('blog_post.html', post=post, data=portfolio_data)
+#     return "Blog post not found", 404
 
 # Serve images from the project-level images directory
 @app.route('/images/<path:filename>')
 def images(filename):
     return send_from_directory(os.path.join(app.root_path, 'images'), filename)
-
 
 if __name__ == '__main__':
     if os.environ.get('FREEZE') == 'true':

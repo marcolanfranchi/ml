@@ -1,7 +1,3 @@
-{% extends "base.html" %}
-
-{% block content %}
-
 <!-- Hero SECTION -->
 <div class="hero-content">
     <h1 class="hero-title">{{ data.name }}</h1>
@@ -52,7 +48,7 @@
         {% endfor %}
     </div>
 
-    <h2 class="section-subtitle">Volunteering</h2>
+    <h2 class="section-subtitle">Other Experience</h2>
     <div class="timeline-group">
         {% for vol in data.volunteering %}
         <div class="timeline-item">
@@ -124,5 +120,3 @@ function closeModal() {
     document.getElementById('imgModal').style.display = 'none';
 }
 </script>
-
-{% endblock %}

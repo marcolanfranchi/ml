@@ -1,0 +1,273 @@
+{% extends "base.html" %}
+
+{% block title %}Zines{% endblock %}
+
+{% block content %}
+<style>
+    /* Zine reader specific styles */
+    .zine-container {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90vw;
+        max-width: 1000px;
+        height: 80vh;
+        max-height: 700px;
+        z-index: 1000;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        padding: 60px;
+        box-sizing: border-box;
+    }
+    
+    .zine-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+    
+    .zine-container ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        position: absolute;
+        top: 60px;
+        right: 60px;
+        left: 60px;
+        bottom: 60px;
+        width: calc(100% - 120px);
+        height: calc(100% - 120px);
+        transform-style: preserve-3d;
+        user-select: none;
+        perspective-origin: center;
+        perspective: 1000px;
+    }
+
+    .zine-container li {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        width: 50%;
+        height: 100%;
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+        transform-origin: center left;
+        transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+
+    .zine-container img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        object-fit: contain;
+        object-position: center left;
+        transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+    }
+    
+    .zine-container li:nth-child(even) img {
+        object-position: center right;
+    }
+
+    .zine-container li.depth-0 img {
+        transform: translateZ(0) scaleX(1);
+    }
+    .zine-container li:nth-child(even) img {
+        transform: translateZ(0) scaleX(-1);
+    }
+    .zine-container li.depth-1 img {
+        transform: translateZ(-2px) scaleX(1);
+    }
+    .zine-container li.depth-1:nth-child(even) img {
+        transform: translateZ(-2px) scaleX(-1);
+    }
+    .zine-container li.depth-2 img {
+        transform: translateZ(-4px) scaleX(1);
+    }
+    .zine-container li.depth-2:nth-child(even) img {
+        transform: translateZ(-4px) scaleX(-1);
+    }
+    
+    #loading {
+        position: absolute;
+        top: 60px;
+        right: 60px;
+        left: 60px;
+        bottom: 60px;
+        width: calc(100% - 120px);
+        height: calc(100% - 120px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f5f5f5;
+        font-family: sans-serif;
+    }
+    
+    .zine-controls {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 1001;
+    }
+    
+    .zine-controls button {
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 16px;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease;
+    }
+    
+    .zine-controls button:hover {
+        background: rgba(0, 0, 0, 0.9);
+    }
+    
+    .zine-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        padding: 40px 0;
+        max-width: 1200px;
+    }
+    
+    @media (max-width: 768px) {
+        .zine-gallery {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .zine-gallery {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (min-width: 1025px) {
+        .zine-gallery {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    
+    .zine-item {
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+    
+    .zine-item:hover {
+        opacity: 0.8;
+    }
+    
+    .zine-item img {
+        max-width: 200px;
+        height: auto;
+        margin-bottom: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+</style>
+
+<!-- Hero SECTION -->
+<div class="hero-content">
+    <h1 class="hero-title">Zines</h1>
+    <p class="hero-description">A collection of zines I've created. Click one to flip through it (thanks to https://alienmelon.itch.io/electric-zine-maker and https://github.com/jeremyoduber/EZM-Reader). </p>
+</div>
+
+<!-- Zines SECTION -->
+<div class="section" id="zines">
+    <div class="zine-overlay" id="zine-overlay" style="display: none;" onclick="toggleZineReader()"></div>
+    <div class="zine-container" id="zine-container" style="display: none;">
+        <div class="zine-controls">
+            <button onclick="toggleZineReader()">✕</button>
+        </div>
+        <noscript>This electric zine requires javascript to be enabled.</noscript>
+        <div id="loading">loading zine...</div>
+    </div>
+    
+    <div class="zine-gallery">
+        {% for zine in data.zines %}
+        <div class="zine-item" onclick="toggleZineReader('{{ zine.id }}')">
+            <img src="{{ url_for('static', filename=zine.images_folder + '/' + zine.cover_image) }}" alt="{{ zine.title }}">
+            <div class="timeline-item">
+                <h3>{{ zine.title }}</h3>
+                <span class="meta">📅 {{ zine.date }}</span>
+                <p>{{ zine.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script type="application/json" id="zines-data">{{ data.zines | tojson | safe }}</script>
+<script type="text/javascript">
+// Zine data from Flask
+const zinesData = JSON.parse(document.getElementById('zines-data').textContent);
+
+function toggleZineReader(zineId) {
+    const container = document.getElementById('zine-container');
+    const overlay = document.getElementById('zine-overlay');
+    
+    if (container.style.display === 'none') {
+        container.style.display = 'block';
+        overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        // Load the zine reader script with the specific zine data
+        if (!window.zineReaderLoaded) {
+            loadZineReader(zineId);
+        } else {
+            // If already loaded, just switch to the new zine
+            switchZine(zineId);
+        }
+    } else {
+        container.style.display = 'none';
+        overlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+function loadZineReader(zineId) {
+    const script = document.createElement('script');
+    script.src = "{{ url_for('static', filename='js/ezmreader.js') }}";
+    script.onload = function() {
+        window.zineReaderLoaded = true;
+        // Pass the zine data to the reader
+        if (window.initZineReader) {
+            window.initZineReader(zineId, zinesData);
+        }
+    };
+    document.head.appendChild(script);
+}
+
+function switchZine(zineId) {
+    if (window.switchZineReader) {
+        window.switchZineReader(zineId, zinesData);
+    }
+}
+</script>
+
+{% endblock %}

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{{ data.name }} - Portfolio{% endblock %}</title>
-    <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+    <title>{% block title %}{{ data.name }}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
 </head>
@@ -18,7 +17,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="/" class="nav-link">mlanfranchi.xyz</a>
-            {% if request.endpoint not in ['blog', 'blog_post'] %}
+            {% if request.endpoint == 'index' %}
             <ul class="nav-menu">
                 <li class="nav-link">
                     <a href="#experience" class="nav-link">Experience</a>
@@ -26,8 +25,20 @@
                 <li class="nav-link">
                     <a href="#projects" class="nav-link">Projects</a>
                 </li>
-                <!-- <li class="nav-link">
-                    <a href="{{ url_for('blog') }}" class="nav-link{% if request.endpoint == 'blog' %} active{% endif %}">Blog</a>
+                <!-- <li class="nav-link dropdown">
+                    <a href="#" class="nav-link">Other</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('zines') }}">Zines</a>
+                    </div>
+                </li> -->
+            </ul>
+            {% else %}
+            <ul class="nav-menu">
+                <!-- <li class="nav-link dropdown">
+                    <a href="#" class="nav-link">Other</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('zines') }}">Zines</a>
+                    </div>
                 </li> -->
             </ul>
             {% endif %}
