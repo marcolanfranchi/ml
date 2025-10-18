@@ -143,7 +143,7 @@ portfolio_data = {
 def index():
     return render_template('index.html', data=portfolio_data)
 
-@app.route('/zines')
+@app.route('/zines/')
 def zines():
     return render_template('zines.html', data=portfolio_data)
 
@@ -170,6 +170,7 @@ if __name__ == '__main__':
         @freezer.register_generator
         def zines():
             yield 'zines.html'
+
         freezer.freeze()
     else:
         app.run(debug=True, host='0.0.0.0', port=5000) 
