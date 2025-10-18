@@ -169,7 +169,7 @@ if __name__ == '__main__':
         # Explicitly register all routes for static generation
         @freezer.register_generator
         def zines():
-            yield 'zines'
+            yield 'zines.html'
         freezer.freeze()
     else:
         app.run(debug=True, host='0.0.0.0', port=5000) 
