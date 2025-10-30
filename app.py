@@ -73,7 +73,7 @@ portfolio_data = {
             'description': 'End-to-end machine learning project that identifies who\'s speaking from audio clips. \
                 Built a data pipeline with speaker diarization, audio preprocessing, and feature extraction. \
                 Working on model training, evaluation, and a real-time speaker identification demo interface.',
-            'tech': ["Python", "Librosa", "FFmpeg", "pyannote.audio", "Scikit-learn"],
+            'tech': ["Python", "Librosa", "FFmpeg", "pyannote.audio", "Scikit-learn", "Streamlit"],
             'github': 'https://github.com/marcolanfranchi/lisa',
             'demo': 'static/images/lisadiagramwhite.png',
         },
@@ -90,7 +90,7 @@ portfolio_data = {
             'title': 'iammusic-template',
             'description': 'Web app that lets users generate custom versions of a popular album cover. \
                 At its peak, it reached over 200k visitors in a single month and has processed over 500k submissions \
-                    through a custom API and NoSQL cloud database. Still receives ~1k daily visitors to date.',
+                    through a custom API and NoSQL cloud database.',
             'tech': ["React.js", "Next.js", "Firebase", "Vercel", "GCP"],
             'github': 'https://github.com/marcolanfranchi/iammusic-template',
             'website': 'https://iammusic-template.vercel.app',
