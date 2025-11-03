@@ -5,7 +5,6 @@
 }
 
 body {
-    /* font-family: "arial", sans-serif; */
     font-family: 'Alike Angular', serif;
     line-height: 1.25;
     color: #111111;
@@ -19,7 +18,6 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    /* font-family: "arial", sans-serif; */
     font-family: 'Alike Angular', serif;
     line-height: 1.25;
     color: #111111;
@@ -98,14 +96,14 @@ a:hover {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 120px;
+    min-width: 130px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
     border: 1px solid #e2e2e2;
     border-radius: 4px;
     z-index: 1001;
     top: 100%;
     left: 0;
-    margin-top: 4px;
+    margin-top: 6px;
 }
 
 .dropdown-content a {
@@ -120,10 +118,6 @@ a:hover {
 .dropdown-content a:hover {
     background-color: #eeeeee;
     color: #111111;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 
 .dropdown:focus-within .dropdown-content {

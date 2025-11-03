@@ -147,9 +147,9 @@ def index():
 def zines():
     return render_template('zines.html', data=portfolio_data)
 
-@app.route('/listening-history/')
-def music():
-    return render_template('music.html', data=portfolio_data)
+@app.route('/listening_history/')
+def listening_history():
+    return render_template('listening_history.html')
 
 # @app.route('/blog/<post_id>')
 # def blog_post(post_id):
@@ -170,6 +170,10 @@ if __name__ == '__main__':
         @freezer.register_generator
         def zines():
             yield 'zines.html'
+        
+        @freezer.register_generator
+        def listening_history():
+            yield 'listening_history.html'
 
         freezer.freeze()
     else:
