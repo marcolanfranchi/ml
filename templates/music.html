@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% block title %}Listening History{% endblock %}
+
+{% block content %}
+<div class="hero-content">
+  <h1 class="hero-title">Listening History</h1>
+  <p class="hero-description">A log of my listening history being kept in an SQLite db (<a href="https://github.com/marcolanfranchi/spotify-history">project</a>).</p>
+  <p id="total-plays" class="music-total">Loading...</p>
+</div>
+
+<div class="section" id="music">
+  <div id="music-container">
+    <p>Loading music listening history...</p>
+  </div>
+</div>
+
+<script>
+const CSV_URL = "https://raw.githubusercontent.com/marcolanfranchi/spotify-history/main/data/plays.csv";
+
+function parseCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    if (char === '"') inQuotes = !inQuotes;
+    else if (char === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else current += char;
+  }
+  result.push(current.trim());
+  return result;
+}
+
+async function getPlays() {
+  const res = await fetch(CSV_URL);
+  const text = await res.text();
+  const lines = text.trim().split("\n");
+  
+  return lines.slice(1).map(line => {
+    const parts = parseCSVLine(line);
+    return {
+      played_at: parts[0] || "",
+      track_name: parts[2] || "Unknown Track",
+      artist_name: parts[3] || "Unknown Artist"
+    };
+  })
+  .filter(play => play.played_at)
+  .sort((a, b) => new Date(b.played_at) - new Date(a.played_at));
+}
+
+function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
+}
+
+function formatTime(datetime) {
+  const date = new Date(datetime);
+  return date.toLocaleTimeString("en-US", { 
+    hour: "numeric", 
+    minute: "2-digit",
+    hour12: true 
+  });
+}
+
+function getLocalDateKey(utcDateStr) {
+  const date = new Date(utcDateStr);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+async function renderMusic() {
+  const container = document.getElementById("music-container");
+  container.innerHTML = "";
+
+  try {
+    const plays = await getPlays();
+
+    if (plays.length === 0) {
+      container.innerHTML = '<p>No music listening history found.</p>';
+      return;
+    }
+
+    document.getElementById("total-plays").textContent = `(${plays.length.toLocaleString()} total plays)`;
+
+    const byDay = plays.reduce((acc, play) => {
+      const day = getLocalDateKey(play.played_at);
+      acc[day] = acc[day] || [];
+      acc[day].push(play);
+      return acc;
+    }, {});
+
+    const days = Object.keys(byDay).sort((a, b) => new Date(b) - new Date(a));
+
+    days.forEach((day, index) => {
+      const items = byDay[day];
+      const isFirstDay = index === 0;
+      
+      const daySection = document.createElement("div");
+      daySection.className = "music-day";
+      
+      const header = document.createElement("h3");
+      header.className = "music-day-header";
+      header.style.cursor = "pointer";
+      header.innerHTML = `<span class="collapse-arrow">${isFirstDay ? '▼' : '▶'}</span> ${formatDate(items[0].played_at)} <span class="play-count">(${items.length})</span>`;
+      
+      const trackList = document.createElement("div");
+      trackList.className = "music-tracks";
+      trackList.style.display = isFirstDay ? "block" : "none";
+      
+      items.forEach(play => {
+        const track = document.createElement("div");
+        track.className = "music-track";
+        const time = formatTime(play.played_at);
+        track.innerHTML = `<span class="music-time">${time}</span> ${play.track_name} - ${play.artist_name}`;
+        trackList.appendChild(track);
+      });
+      
+      header.addEventListener("click", () => {
+        const isOpen = trackList.style.display === "block";
+        trackList.style.display = isOpen ? "none" : "block";
+        header.querySelector(".collapse-arrow").textContent = isOpen ? "▶" : "▼";
+      });
+      
+      daySection.appendChild(header);
+      daySection.appendChild(trackList);
+      container.appendChild(daySection);
+    });
+  } catch (error) {
+    console.error("Error loading music listening history:", error);
+    container.innerHTML = '<p>Error loading music listening history.</p>';
+  }
+}
+
+renderMusic();
+</script>
+
+<style>
+.music-total {
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.music-day {
+  margin-bottom: 1rem;
+}
+
+.music-day-header {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+  color: #222;
+  font-weight: 500;
+}
+
+.collapse-arrow {
+  display: inline-block;
+  width: 1em;
+  font-size: 0.7rem;
+  color: #666;
+}
+
+.play-count {
+  color: #888;
+  font-size: 0.85em;
+  font-weight: 400;
+  margin-left: 0.2rem;
+}
+
+.music-tracks {
+  margin-top: 0.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.music-track {
+  font-size: 0.8rem;
+  color: #555;
+  line-height: 1.3;
+}
+
+.music-time {
+  color: #999;
+  font-size: 0.75rem;
+  display: inline-block;
+  min-width: 50px;
+}
+
+@media (max-width: 768px) {
+  .music-track {
+    font-size: 0.75rem;
+  }
+  .music-time {
+    min-width: 45px;
+    font-size: 0.7rem;
+  }
+}
+</style>
+{% endblock %}

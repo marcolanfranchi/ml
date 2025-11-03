@@ -118,10 +118,10 @@ portfolio_data = {
     'blog_posts': [
         # {
         #     'id': 'getting-started-with-machine-learning',
-        #     'title': 'Getting Started with Machine Learning',
+        #     'title': 'test',
         #     'date': '2025-01-15',
-        #     'excerpt': 'A beginner-friendly guide to understanding the fundamentals of machine learning and how to get started with your first project.',
-        #     'tags': ['Machine Learning', 'Beginner', 'Python']
+        #     'excerpt': 'test test test',
+        #     'tags': ['Machine Learning']
         # },
     ],
     
@@ -131,7 +131,7 @@ portfolio_data = {
             'title': 'Cypherpunks: The Origins of Digital Resistance',
             'date': 'Oct 2025',
             'description': 'A zine about the origins of the cypherpunk movement. Made as part of SFU\'s PUB 448 course.',
-            'images_folder': 'cypherpunksorigins-zine',  # This will be used as /static/pages/
+            'images_folder': 'cypherpunksorigins-zine', # Folder in static/images/
             'cover_image': 'FRONT.png',
             'template': 1,  # EZM template number (1-8)
             'pages': ['FRONT.png', 'INNERFRONT.png', '1.png', '2.png', '3.png', '4.png', '5.png', 'BACK.png']
@@ -147,9 +147,9 @@ def index():
 def zines():
     return render_template('zines.html', data=portfolio_data)
 
-# @app.route('/blog')
-# def blog():
-#     return render_template('blog.html', data=portfolio_data)
+@app.route('/listening-history/')
+def music():
+    return render_template('music.html', data=portfolio_data)
 
 # @app.route('/blog/<post_id>')
 # def blog_post(post_id):

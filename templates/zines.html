@@ -216,7 +216,7 @@
             <img src="{{ url_for('static', filename=zine.images_folder + '/' + zine.cover_image) }}" alt="{{ zine.title }}">
             <div class="timeline-item">
                 <h3>{{ zine.title }}</h3>
-                <span class="meta">📅 {{ zine.date }}</span>
+                <span class="meta">{{ zine.date }}</span>
                 <p>{{ zine.description }}</p>
             </div>
         </div>
