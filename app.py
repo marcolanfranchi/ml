@@ -147,7 +147,7 @@ def index():
 def zines():
     return render_template('zines.html', data=portfolio_data)
 
-@app.route('/listening_history/')
+@app.route('/listening-history/')
 def listening_history():
     return render_template('listening_history.html')
 

@@ -16,6 +16,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Mobile dropdown toggle
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownLink = dropdown?.querySelector('a');
+    
+    if (dropdown && dropdownLink) {
+        dropdownLink.addEventListener('click', function(e) {
+            // On mobile, toggle the dropdown instead of following the link
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            }
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    }
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -29,5 +50,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-}); 
+});
