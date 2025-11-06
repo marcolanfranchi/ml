@@ -48,6 +48,28 @@
         {% endfor %}
     </div>
 
+    <h2 class="section-subtitle">Open Source Contributions</h2>
+    <div class="timeline-group">
+        {% for contr in data.opensource %}
+        <div class="timeline-item">
+            <h3>{{ contr.title }}</h3>
+            <span class="meta">📅 {{ contr.date }}</span>
+            <p>{{ contr.description }}</p>
+            <div class="meta">
+                <a href="{{ contr.pr_link }}" target="_blank">Merged Request</a>
+            </div>         
+            <div class="tags">
+            {% if contr.tech %}
+                🛠️
+                {% for tech in contr.tech %}
+                    <span>{{ tech }}{% if not loop.last %}, {% endif %}</span>
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
     <h2 class="section-subtitle">Other Experience</h2>
     <div class="timeline-group">
         {% for vol in data.volunteering %}
@@ -101,7 +123,6 @@
         </div>
         {% endfor %}
 
-        <!-- Move the modal OUTSIDE the loop -->
         <div id="imgModal" class="img-modal" onclick="closeModal()">
             <img id="modalImg" class="img-modal-content" alt="">
         </div>

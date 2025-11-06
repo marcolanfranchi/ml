@@ -48,6 +48,19 @@ portfolio_data = {
                      "Regression Analysis"]
         }
     ],
+    'opensource': [
+        {
+            'title': 'Streamlit',
+            # 'company': 'Snowflake, Inc. (maintainers and owners of Streamlit)',
+            'pr_link': 'https://github.com/streamlit/streamlit/pull/12897',
+            'date': 'Nov 2025',
+            'description': "Contributed to the Streamlit core library by implementing tooltip support for \
+            st.badge(), enhancing a new component and maintaining Streamlit's modern design. Streamlit is \
+                a popular open-source framework for building data and ML apps, owned by Snowflake.",
+            'tech': ["Python", "TypeScript", "Streamlit", "GitHub", "Markdown"]
+        },
+    ],
+
     'volunteering': [
         {
             'title': 'Volunteer Jr. Data Scientist',
