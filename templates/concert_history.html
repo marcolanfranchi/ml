@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Concert History{% endblock %}
+
+{% block content %}
+<div class="hero-content">
+  <h1 class="hero-title">Concert History</h1>
+  <p class="hero-description">A log of concerts I’ve been to so I don't forget any.</p>
+</div>
+
+<div class="section concert-history-grid">
+  {% for concert in data.concerts %}
+  <div class="concert-card">
+    <div class="concert-info">
+      <h3 class="concert-title">{{ concert.title }}</h3>
+      <p class="concert-date">{{ concert.date }} · {{ concert.location }}</p>
+    </div>
+    <div class="concert-images">
+      {% for image in concert.images %}
+      <img src="{{ url_for('static', filename=concert.folder + '/' + image) }}" alt="{{ concert.title }} photo">
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<style>
+.concert-history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.concert-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.concert-info {
+  margin-bottom: 0.3rem;
+}
+
+.concert-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.concert-date {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 0.15rem;
+}
+
+.concert-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.3rem;
+}
+
+.concert-images img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  background: #f8f8f8;
+}
+
+@media (max-width: 600px) {
+  .concert-history-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .concert-images {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+}
+</style>
+{% endblock %}

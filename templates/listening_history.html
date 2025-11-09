@@ -89,7 +89,7 @@ async function renderMusic() {
       return;
     }
 
-    document.getElementById("total-plays").textContent = `(${plays.length.toLocaleString()} total plays)`;
+    document.getElementById("total-plays").textContent = `(${plays.length.toLocaleString()} plays logged in total)`;
 
     const byDay = plays.reduce((acc, play) => {
       const day = getLocalDateKey(play.played_at);
