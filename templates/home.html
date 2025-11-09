@@ -25,14 +25,14 @@
             <h3>{{ internship.title }}, {{ internship.company }}</h3>
             <span class="meta">📅 {{ internship.date }}</span>
             <p>{{ internship.description }}</p>
-            <div class="tags">
+            <!-- <div class="tags">
                 {% if internship.tech %}
                     🛠️
                     {% for tech in internship.tech %}
                         <span>{{ tech }}{% if not loop.last %}, {% endif %}</span>
                     {% endfor %}
                 {% endif %}
-            </div>
+            </div> -->
         </div>
         {% endfor %}
     </div>
@@ -57,14 +57,14 @@
             <div class="meta">
                 <a href="{{ contr.pr_link }}" target="_blank">Pull Request</a>
             </div>         
-            <div class="tags">
+            <!-- <div class="tags">
             {% if contr.tech %}
                 🛠️
                 {% for tech in contr.tech %}
                     <span>{{ tech }}{% if not loop.last %}, {% endif %}</span>
                 {% endfor %}
             {% endif %}
-            </div>
+            </div> -->
         </div>
         {% endfor %}
     </div>
@@ -76,14 +76,14 @@
             <h3>{{ vol.title }}, {{ vol.company }}</h3>
             <span class="meta">📅 {{ vol.date }}</span>
             <p>{{ vol.description }}</p>
-            <div class="tags">
+            <!-- <div class="tags">
             {% if vol.tech %}
                 🛠️
                 {% for tech in vol.tech %}
                     <span>{{ tech }}{% if not loop.last %}, {% endif %}</span>
                 {% endfor %}
             {% endif %}
-            </div>
+            </div> -->
         </div>
         {% endfor %}
     </div>
@@ -105,14 +105,14 @@
                     <a href="{{ project.website }}" target="_blank">Website</a>
                     {% endif %}
                 </div>
-                <div class="tags">
+                <!-- <div class="tags">
                 {% if project.tech %}
                     🛠️
                     {% for tech in project.tech %}
                         <span>{{ tech }}{% if not loop.last %}, {% endif %}</span>
                     {% endfor %}
                 {% endif %}
-                </div>
+                </div> -->
             </div>
             {% if project.demo %}
                 <div class="project-media">
