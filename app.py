@@ -38,7 +38,7 @@ portfolio_data = {
             'title': 'Data Analyst Intern',
             'company': 'Nettwerk Music Group',
             'date': 'Sept 2023 - May 2024',
-            'description': "Developed dashboards, data pipelines, and applied machine learning \
+            'description': "Developed dashboards, data pipelines, and applied data science \
                 techniques analyzing global streaming data for hundreds of artists as part of the \
                     Analytics team in an independent music label.",
             'tech': ["Snowflake", "SQL", "Tableau", "Python", "Scikit-learn", "Data Visualization", 
@@ -145,6 +145,13 @@ portfolio_data = {
 
     'concerts': [
 
+        {
+            'title': "Dream, Ivory & Wisp at the Pearl",
+            'date': 'September 2025',
+            'location': 'Vancouver, BC',
+            'folder': 'concerts/wisp-sept2025', # Folder in static/images/
+            'images': ['1.jpg', '2.png']
+        },
         {
             'title': "Montréal Jazz Festival",
             'date': 'June 2025',
