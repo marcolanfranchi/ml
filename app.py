@@ -40,7 +40,7 @@ portfolio_data = {
             'date': 'Sept 2023 - May 2024',
             'description': "Developed dashboards, data pipelines, and applied data science \
                 techniques analyzing global streaming data for hundreds of artists as part of the \
-                    Analytics team in an independent music label.",
+                    Analytics team at an independent music label.",
             'tech': ["Snowflake", "SQL", "Tableau", "Python", "Scikit-learn", "Data Visualization", 
                      "Geospatial Analysis", "Regression Analysis"]
         }
@@ -48,9 +48,8 @@ portfolio_data = {
     'opensource': [
         {
             'title': 'Streamlit',
-            # 'company': 'Snowflake, Inc.',
             'pr_link': 'https://github.com/streamlit/streamlit/pull/12897',
-            'date': 'Nov 2025',
+            'date': 'Oct 2025',
             'description': "Contributed to Streamlit, a popular open-source framework for \
                 building data and ML apps, by implementing tooltip support for st.badge().",
             'tech': ["Python", "TypeScript", "Streamlit", "GitHub", "Markdown"]
@@ -70,8 +69,8 @@ portfolio_data = {
             'title': 'Research Associate',
             'company': 'Dr. Matt Lowe, UBC School of Economics',
             'date': 'Jan 2021 - Aug 2021',
-            'description': "Collaborated as an undergraduate research associate collecting data for Dr. Matt Lowe’s \
-                research project: 'Do Virtue Signals Signal Virtue?'."
+            'description': "Collaborated as an undergraduate research associate collecting data for one of \
+                Dr. Matt Lowe’s research studies in behavioral economics.",
         }
     ],
     

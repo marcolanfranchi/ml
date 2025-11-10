@@ -248,7 +248,7 @@ a:hover::after {
 
 .project-list .meta {
     margin-top: 0.25rem;          
-    margin-bottom: 0.5rem;        /* same rhythm as experience meta */
+    margin-bottom: 0.5rem;
 }
 
 /* Project-specific layout additions */
@@ -262,12 +262,12 @@ a:hover::after {
 }
 
 .project-list .timeline-item:last-child {
-    padding-bottom: 1rem; /* match experience last item */
+    padding-bottom: 1rem;
 }
 
 .project-media {
     width: 140px;
-    aspect-ratio: 4 / 3; /* wider shape */
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: 6px;
     border: 1px solid #eeeeee;
