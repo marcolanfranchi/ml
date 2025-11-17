@@ -87,7 +87,7 @@ portfolio_data = {
         {
             'title': 'spotify-history',
             'description': 'Automated background service that archives your Spotify listening history in an SQLite db and \
-                emails daily summaries',
+                emails daily summaries.',
             'tech': ["Python", "SQLite3", "Spotify API", "Cron", "Shell Scripting"],
             'github': 'https://github.com/marcolanfranchi/spotify-history',
             'demo': 'static/images/pi.png',
@@ -144,6 +144,13 @@ portfolio_data = {
 
     'concerts': [
 
+        {
+            'title': "Bar Italia at the Hollywood Theatre",
+            'date': 'November 2025',
+            'location': 'Vancouver, BC',
+            'folder': 'concerts/baritalia-nov2025', # Folder in static/images/
+            'images': ['1.png']
+        },
         {
             'title': "Dream, Ivory & Wisp at the Pearl",
             'date': 'September 2025',
