@@ -76,10 +76,10 @@ portfolio_data = {
     
     'projects': [
         {
-            'title': 'LISA (Labeled Identification of Speaker\'s Audio Model)',
+            'title': 'lisa (Labeled Identification of Speaker\'s Audio Model)',
             'description': 'ML model for speaker identification from audio clips. Pipeline includes \
                 data processing, audio cleaning, feature extraction, and model training. Also \
-                    developed a demo interface that takes live audio input to identify speakers.',
+                    developed a demo interface that takes live audio input and identifies speakers.',
             'tech': ["Python", "Librosa", "FFmpeg", "pyannote.audio", "Scikit-learn", "Streamlit"],
             'github': 'https://github.com/marcolanfranchi/lisa',
             'demo': 'static/images/lisadiagramwhite.png',
@@ -94,8 +94,8 @@ portfolio_data = {
         },
         {
             'title': 'iammusic-template',
-            'description': "Web app that lets users create custom versions of the 'I am Music' album cover. Reached over \
-                200k visitors and processed 500k+ submissions via a custom API and NoSQL cloud database.",
+            'description': "Web app that lets users create custom versions of the 'I AM MUSIC' album cover. Reached over \
+                250k visitors in one month and processed 500k+ submissions via a custom API and NoSQL cloud database.",
             'tech': ["React.js", "Next.js", "Firebase", "Vercel", "GCP"],
             'github': 'https://github.com/marcolanfranchi/iammusic-template',
             'website': 'https://iammusic-template.vercel.app',
@@ -103,7 +103,7 @@ portfolio_data = {
         },
         {
             'title': 'written-digit-recognition',
-            'description': 'Interactive app for handwritten digit classification, backed by a K-nearest neighbors \
+            'description': 'Interactive Streamlit app for handwritten digit classification, backed by a K-nearest neighbors \
                 model implemented from scratch in Python.',
             'tech': ["Python", "NumPy", "Plotly", "Streamlit"],
             'github': 'https://github.com/marcolanfranchi/written-digit-recognition',
