@@ -8,6 +8,35 @@
   <p id="total-plays" class="music-total">Loading...</p>
 </div>
 
+<div class="section" id="activity-chart-section">
+  <div class="activity-chart-wrapper">
+    <div class="activity-months"></div>
+    <div class="activity-content">
+      <div class="activity-days-labels">
+        <span></span>
+        <span>Mon</span>
+        <span></span>
+        <span>Wed</span>
+        <span></span>
+        <span>Fri</span>
+        <span></span>
+      </div>
+      <div id="activity-chart"></div>
+    </div>
+  </div>
+  <div class="activity-legend-wrapper">
+    <div class="activity-legend">
+      <span>Less</span>
+      <div class="legend-box" style="background-color: #ebedf0;"></div>
+      <div class="legend-box" style="background-color: #9be9a8;"></div>
+      <div class="legend-box" style="background-color: #40c463;"></div>
+      <div class="legend-box" style="background-color: #30a14e;"></div>
+      <div class="legend-box" style="background-color: #216e39;"></div>
+      <span>More</span>
+    </div>
+  </div>
+</div>
+
 <div class="section" id="music">
   <div id="music-container">
     <p>Loading music listening history...</p>
@@ -78,7 +107,157 @@ function getLocalDateKey(utcDateStr) {
 }
 
 function generateDots(count) {
-  return  Array(count).fill("<span>•</span>").join("");
+  // Generate dots with truly random delays for each one
+  let dotsHtml = '';
+  for (let i = 0; i < count; i++) {
+    const randomDelay = Math.random() * 4.5; // Random delay between 0 and 4.5s
+    dotsHtml += `<span style="animation-delay: ${randomDelay.toFixed(2)}s">•</span>`;
+  }
+  return dotsHtml;
+}
+
+function renderActivityChart(plays) {
+  const chartContainer = document.getElementById("activity-chart");
+  const monthsContainer = document.querySelector(".activity-months");
+  chartContainer.innerHTML = "";
+  monthsContainer.innerHTML = "";
+
+  // Get play counts by day
+  const playsByDay = plays.reduce((acc, play) => {
+    const day = getLocalDateKey(play.played_at);
+    acc[day] = (acc[day] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Generate last 30 weeks for better fit
+  const today = new Date();
+  const startDate = new Date(today);
+  startDate.setDate(today.getDate() - (30 * 7));
+
+  const weeks = [];
+  let currentWeek = [];
+  let currentDate = new Date(startDate);
+
+  // Track months for labels
+  const monthPositions = [];
+  let lastMonth = -1;
+  let weekIndex = 0;
+
+  // Pad to start on Sunday
+  const startDay = currentDate.getDay();
+  for (let i = 0; i < startDay; i++) {
+    currentWeek.push(null);
+  }
+
+  // Generate all days
+  while (currentDate <= today) {
+    const dateKey = getLocalDateKey(currentDate.toISOString());
+    const count = playsByDay[dateKey] || 0;
+    
+    const month = currentDate.getMonth();
+    if (month !== lastMonth && currentDate.getDay() === 0) {
+      monthPositions.push({
+        month: currentDate.toLocaleDateString("en-US", { month: "short" }),
+        position: weekIndex
+      });
+      lastMonth = month;
+    }
+
+    currentWeek.push({
+      date: new Date(currentDate),
+      dateKey: dateKey,
+      count: count
+    });
+
+    if (currentWeek.length === 7) {
+      weeks.push(currentWeek);
+      currentWeek = [];
+      weekIndex++;
+    }
+
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  if (currentWeek.length > 0) {
+    while (currentWeek.length < 7) {
+      currentWeek.push(null);
+    }
+    weeks.push(currentWeek);
+  }
+
+  // Calculate cell width + gap for proper alignment
+  const cellWidth = 8; // matches .activity-day width
+  const gap = 2; // matches .activity-week gap
+  const weekWidth = cellWidth + gap;
+
+  // Render month labels
+  monthPositions.forEach(({ month, position }) => {
+    const label = document.createElement("span");
+    label.className = "month-label";
+    label.textContent = month;
+    label.style.left = `${position * weekWidth}px`;
+    monthsContainer.appendChild(label);
+  });
+
+  // Determine color scale
+  const maxCount = Math.max(...Object.values(playsByDay), 1);
+  const getColor = (count) => {
+    if (count === 0) return "#ebedf0";
+    const intensity = count / maxCount;
+    if (intensity < 0.25) return "#9be9a8";
+    if (intensity < 0.5) return "#40c463";
+    if (intensity < 0.75) return "#30a14e";
+    return "#216e39";
+  };
+
+  // Build chart
+  const chart = document.createElement("div");
+  chart.className = "activity-grid";
+
+  // Create tooltip
+  const tooltip = document.createElement("div");
+  tooltip.className = "activity-tooltip";
+  document.body.appendChild(tooltip);
+
+  weeks.forEach(week => {
+    const weekCol = document.createElement("div");
+    weekCol.className = "activity-week";
+    
+    week.forEach(day => {
+      const dayCell = document.createElement("div");
+      dayCell.className = "activity-day";
+      
+      if (day) {
+        dayCell.style.backgroundColor = getColor(day.count);
+        dayCell.dataset.date = day.date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+        dayCell.dataset.count = day.count;
+
+        dayCell.addEventListener("mouseenter", (e) => {
+          tooltip.textContent = `${day.count} plays on ${dayCell.dataset.date}`;
+          tooltip.style.display = "block";
+          tooltip.style.left = `${e.pageX}px`;
+          tooltip.style.top = `${e.pageY - 40}px`;
+        });
+
+        dayCell.addEventListener("mousemove", (e) => {
+          tooltip.style.left = `${e.pageX}px`;
+          tooltip.style.top = `${e.pageY - 40}px`;
+        });
+
+        dayCell.addEventListener("mouseleave", () => {
+          tooltip.style.display = "none";
+        });
+      } else {
+        dayCell.style.backgroundColor = "transparent";
+      }
+      
+      weekCol.appendChild(dayCell);
+    });
+    
+    chart.appendChild(weekCol);
+  });
+
+  chartContainer.appendChild(chart);
 }
 
 async function renderMusic() {
@@ -94,6 +273,9 @@ async function renderMusic() {
     }
 
     document.getElementById("total-plays").textContent = `(${plays.length.toLocaleString()} plays logged in total)`;
+
+    // Render activity chart
+    renderActivityChart(plays);
 
     const byDay = plays.reduce((acc, play) => {
       const day = getLocalDateKey(play.played_at);
@@ -173,6 +355,122 @@ renderMusic();
 </script>
 
 <style>
+#activity-chart-section {
+  margin-bottom: 2rem;
+}
+
+#activity-chart-container {
+  /* border: 2px solid #ddd;
+  border-radius: 6px;
+  padding: 0.5rem; */
+}
+
+.chart-title {
+  margin: 0 0 1rem 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #222;
+}
+
+.activity-chart-wrapper {
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.activity-months {
+  display: flex;
+  position: relative;
+  height: 20px;
+  margin-bottom: 4px;
+  margin-left: 30px;
+}
+
+.month-label {
+  position: absolute;
+  font-size: 0.7rem;
+  color: #666;
+}
+
+.activity-content {
+  display: flex;
+  gap: 6px;
+}
+
+.activity-days-labels {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 0px;
+}
+
+.activity-days-labels span {
+  height: 8px;
+  font-size: 0.6rem;
+  color: #666;
+  line-height: 8px;
+  text-align: right;
+  padding-right: 3px;
+  width: 24px;
+}
+
+.activity-grid {
+  display: flex;
+  gap: 2px;
+  width: fit-content;
+}
+
+.activity-week {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.activity-day {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.activity-day:hover {
+  transform: scale(1.3);
+}
+
+.activity-tooltip {
+  position: absolute;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1000;
+  transform: translateX(-50%);
+}
+
+.activity-legend-wrapper {
+  margin-left: 30px;
+}
+
+.activity-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3px;
+  margin-top: 0.75rem;
+  font-size: 0.65rem;
+  color: #666;
+}
+
+.legend-box {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
 .music-total {
   margin-top: 0.3rem;
   font-size: 0.85rem;
@@ -193,47 +491,25 @@ renderMusic();
   margin-left: 8px;
   color: #000;
   font-size: 1.05rem;
-
 }
 
 .dot-bar span {
   display: inline-block;
-  animation: dotGlitch 2.5s infinite;  /* Increased from 1s to 4s - much less frequent */
+  animation: dotGlitch 4.5s infinite;
   color: #101010;
   opacity: 0.9;
 }
 
-/* More varied and random delays */
-.dot-bar span:nth-child(1n) {
-  animation-delay: 0.7s;
-}
-.dot-bar span:nth-child(2n) {
-  animation-delay: 1.9s;
-}
-.dot-bar span:nth-child(3n) {
-  animation-delay: 3.2s;
-}
-.dot-bar span:nth-child(4n) {
-  animation-delay: 0.3s;
-}
-.dot-bar span:nth-child(5n) {
-  animation-delay: 2.5s;
-}
-.dot-bar span:nth-child(6n) {
-  animation-delay: 1.1s;
-}
-.dot-bar span:nth-child(7n) {
-  animation-delay: 3.8s;
-}
-
 @keyframes dotGlitch {
   0% { opacity: 0.9; }
-  94% { opacity: 0.9; }   /* Stay normal longer */
-  94.5% { opacity: 0.7; } /* Start dimming */
-  95% { opacity: 0.4; }   /* Glitch dip */
-  95.5% { opacity: 0.5; } /* Recovery phase 1 */
-  97% { opacity: 0.7; }   /* Recovery phase 2 */
-  97.5% { opacity: 0.9; } /* Back to normal */
+  2% { opacity: 0.6; }
+  3% { opacity: 0.3; }
+  3.5% { opacity: 0.5; }
+  4% { opacity: 0.2; }
+  4.5% { opacity: 0.6; }
+  5.5% { opacity: 0.4; }
+  6% { opacity: 0.7; }
+  7% { opacity: 0.9; }
   100% { opacity: 0.9; }
 }
 
