@@ -107,10 +107,9 @@ function getLocalDateKey(utcDateStr) {
 }
 
 function generateDots(count) {
-  // Generate dots with truly random delays for each one
   let dotsHtml = '';
   for (let i = 0; i < count; i++) {
-    const randomDelay = Math.random() * 4.5; // Random delay between 0 and 4.5s
+    const randomDelay = Math.random() * 4.5;
     dotsHtml += `<span style="animation-delay: ${randomDelay.toFixed(2)}s">•</span>`;
   }
   return dotsHtml;
@@ -122,14 +121,12 @@ function renderActivityChart(plays) {
   chartContainer.innerHTML = "";
   monthsContainer.innerHTML = "";
 
-  // Get play counts by day
   const playsByDay = plays.reduce((acc, play) => {
     const day = getLocalDateKey(play.played_at);
     acc[day] = (acc[day] || 0) + 1;
     return acc;
   }, {});
 
-  // Generate last 30 weeks for better fit
   const today = new Date();
   const startDate = new Date(today);
   startDate.setDate(today.getDate() - (30 * 7));
@@ -138,18 +135,15 @@ function renderActivityChart(plays) {
   let currentWeek = [];
   let currentDate = new Date(startDate);
 
-  // Track months for labels
   const monthPositions = [];
   let lastMonth = -1;
   let weekIndex = 0;
 
-  // Pad to start on Sunday
   const startDay = currentDate.getDay();
   for (let i = 0; i < startDay; i++) {
     currentWeek.push(null);
   }
 
-  // Generate all days
   while (currentDate <= today) {
     const dateKey = getLocalDateKey(currentDate.toISOString());
     const count = playsByDay[dateKey] || 0;
@@ -185,12 +179,10 @@ function renderActivityChart(plays) {
     weeks.push(currentWeek);
   }
 
-  // Calculate cell width + gap for proper alignment
-  const cellWidth = 8; // matches .activity-day width
-  const gap = 2; // matches .activity-week gap
+  const cellWidth = 8;
+  const gap = 2;
   const weekWidth = cellWidth + gap;
 
-  // Render month labels
   monthPositions.forEach(({ month, position }) => {
     const label = document.createElement("span");
     label.className = "month-label";
@@ -199,7 +191,6 @@ function renderActivityChart(plays) {
     monthsContainer.appendChild(label);
   });
 
-  // Determine color scale
   const maxCount = Math.max(...Object.values(playsByDay), 1);
   const getColor = (count) => {
     if (count === 0) return "#ebedf0";
@@ -210,11 +201,9 @@ function renderActivityChart(plays) {
     return "#216e39";
   };
 
-  // Build chart
   const chart = document.createElement("div");
   chart.className = "activity-grid";
 
-  // Create tooltip
   const tooltip = document.createElement("div");
   tooltip.className = "activity-tooltip";
   document.body.appendChild(tooltip);
@@ -274,7 +263,6 @@ async function renderMusic() {
 
     document.getElementById("total-plays").textContent = `(${plays.length.toLocaleString()} plays logged in total)`;
 
-    // Render activity chart
     renderActivityChart(plays);
 
     const byDay = plays.reduce((acc, play) => {
@@ -286,64 +274,75 @@ async function renderMusic() {
 
     const days = Object.keys(byDay).sort((a, b) => new Date(b) - new Date(a));
 
-  let lastMonth = null;
+    let lastMonth = null;
 
-  days.forEach((day, index) => {
-    const items = byDay[day];
-    const dateObj = new Date(items[0].played_at);
+    days.forEach((day, index) => {
+      const items = byDay[day];
+      const dateObj = new Date(items[0].played_at);
 
-    const monthLabel = dateObj.toLocaleDateString("en-US", {
-      month: "long",
-      year: "numeric"
+      const monthLabel = dateObj.toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric"
+      });
+
+      if (monthLabel !== lastMonth) {
+        lastMonth = monthLabel;
+
+        const monthSeparator = document.createElement("div");
+        monthSeparator.className = "music-month-separator";
+        monthSeparator.textContent = monthLabel;
+        container.appendChild(monthSeparator);
+      }
+
+      const isFirstDay = index === 0;
+
+      const daySection = document.createElement("div");
+      daySection.className = "music-day";
+
+      const header = document.createElement("h3");
+      header.className = "music-day-header";
+      header.style.cursor = "pointer";
+      header.innerHTML = `
+        <span class="collapse-arrow">${isFirstDay ? '▼' : '▶'}</span>
+        ${formatDate(items[0].played_at)}
+        <span class="dot-bar">${generateDots(items.length)}</span>
+        <span class="play-count">(${items.length})</span>
+      `;
+
+      // Count plays per artist for this day
+      const artistCounts = items.reduce((acc, play) => {
+        acc[play.artist_name] = (acc[play.artist_name] || 0) + 1;
+        return acc;
+      }, {});
+
+      // Sort artists by play count
+      const sortedArtists = Object.entries(artistCounts)
+        .sort((a, b) => b[1] - a[1]);
+
+      const artistList = document.createElement("div");
+      artistList.className = "music-artists";
+      artistList.style.display = isFirstDay ? "block" : "none";
+
+      sortedArtists.forEach(([artist, count]) => {
+        const artistItem = document.createElement("div");
+        artistItem.className = "music-artist";
+        artistItem.innerHTML = `
+          <span class="artist-name">${artist}</span>
+          <span class="artist-count">${count} play${count > 1 ? 's' : ''}</span>
+        `;
+        artistList.appendChild(artistItem);
+      });
+
+      header.addEventListener("click", () => {
+        const isOpen = artistList.style.display === "block";
+        artistList.style.display = isOpen ? "none" : "block";
+        header.querySelector(".collapse-arrow").textContent = isOpen ? "▶" : "▼";
+      });
+
+      daySection.appendChild(header);
+      daySection.appendChild(artistList);
+      container.appendChild(daySection);
     });
-
-    if (monthLabel !== lastMonth) {
-      lastMonth = monthLabel;
-
-      const monthSeparator = document.createElement("div");
-      monthSeparator.className = "music-month-separator";
-      monthSeparator.textContent = monthLabel;
-      container.appendChild(monthSeparator);
-    }
-
-    const isFirstDay = index === 0;
-
-    const daySection = document.createElement("div");
-    daySection.className = "music-day";
-
-    const header = document.createElement("h3");
-    header.className = "music-day-header";
-    header.style.cursor = "pointer";
-    header.innerHTML = `
-      <span class="collapse-arrow">${isFirstDay ? '▼' : '▶'}</span>
-      ${formatDate(items[0].played_at)}
-      <span class="dot-bar">${generateDots(items.length)}</span>
-      <span class="play-count">(${items.length})</span>
-    `;
-
-
-    const trackList = document.createElement("div");
-    trackList.className = "music-tracks";
-    trackList.style.display = isFirstDay ? "block" : "none";
-
-    items.forEach(play => {
-      const track = document.createElement("div");
-      track.className = "music-track";
-      const time = formatTime(play.played_at);
-      track.innerHTML = `<span class="music-time">${time}</span> ${play.track_name} - ${play.artist_name}`;
-      trackList.appendChild(track);
-    });
-
-    header.addEventListener("click", () => {
-      const isOpen = trackList.style.display === "block";
-      trackList.style.display = isOpen ? "none" : "block";
-      header.querySelector(".collapse-arrow").textContent = isOpen ? "▶" : "▼";
-    });
-
-    daySection.appendChild(header);
-    daySection.appendChild(trackList);
-    container.appendChild(daySection);
-  });
 
   } catch (error) {
     console.error("Error loading music listening history:", error);
@@ -357,19 +356,6 @@ renderMusic();
 <style>
 #activity-chart-section {
   margin-bottom: 2rem;
-}
-
-#activity-chart-container {
-  /* border: 2px solid #ddd;
-  border-radius: 6px;
-  padding: 0.5rem; */
-}
-
-.chart-title {
-  margin: 0 0 1rem 0;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #222;
 }
 
 .activity-chart-wrapper {
@@ -538,32 +524,39 @@ renderMusic();
   margin-left: 0.2rem;
 }
 
-.music-tracks {
+.music-artists {
   margin-top: 0.4rem;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.3rem;
 }
 
-.music-track {
+.music-artist {
   font-size: 0.8rem;
   color: #555;
-  line-height: 1.3;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 0.5rem;
 }
 
-.music-time {
+.artist-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.artist-count {
   color: #999;
   font-size: 0.75rem;
-  display: inline-block;
-  min-width: 50px;
 }
 
 @media (max-width: 768px) {
-  .music-track {
+  .music-artist {
     font-size: 0.75rem;
   }
-  .music-time {
-    min-width: 45px;
+  .artist-count {
     font-size: 0.7rem;
   }
 }
