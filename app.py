@@ -12,8 +12,7 @@ portfolio_data = {
     'github': 'https://github.com/marcolanfranchi',
     'linkedin': 'https://linkedin.com/in/marco--lanfranchi',
     'hero_description': "4th year data science student at SFU with experience in databases, \
-                            software development, and data science. Looking for new-grad \
-                            opportunities in data science/machine learning operations.",
+                            software development, and data science.",
     'education': [
         {
             'degree': 'BSc in Data Science',
