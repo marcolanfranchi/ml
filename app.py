@@ -75,7 +75,7 @@ portfolio_data = {
     
     'projects': [
         {
-            'title': 'lisa (Labeled Identification of Speaker\'s Audio Model)',
+            'title': 'lisa (Labeled Identification of Speech Audio)',
             'description': 'ML model for speaker identification from audio clips. Pipeline includes \
                 data processing, audio cleaning, feature extraction, and model training. Also \
                     developed a demo interface that takes live audio input and identifies speakers.',
