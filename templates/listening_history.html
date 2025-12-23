@@ -8,7 +8,6 @@
     A log of my Spotify listening history that I'm storing in an SQLite db
     (<a href="https://github.com/marcolanfranchi/spotify-history">project</a>).
   </p>
-  <p id="total-plays" class="music-total">Loading...</p>
 </div>
 
 <!-- ================= MAIN LAYOUT ================= -->
@@ -428,8 +427,6 @@ async function renderMusic() {
   container.innerHTML = "";
 
   const plays = await getPlays();
-  document.getElementById("total-plays").textContent =
-    `(${plays.length.toLocaleString()} plays logged in total)`;
 
   computeQuickStats(plays);
 
