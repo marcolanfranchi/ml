@@ -1,19 +1,10 @@
-name: Deploy to GitHub Pages
+name: Deploy to Main GitHub Pages Site
 
 on:
   push:
     branches:
       - main
       - master
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -29,27 +20,23 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python3 -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Clean old build
-        run: python build.py clean
+        run: python3 build.py clean
 
       - name: Generate static site
-        run: python build.py
+        run: python3 build.py
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: build
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy to marcolanfranchi.github.io
+        run: |
+          cd build
+          echo "mlanfranchi.xyz" > CNAME # preserve custom domain
+          git init
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add .
+          git commit -m "Deploy site"
+          git branch -M main
+          git push --force "https://${{ secrets.GH_PAGES_PAT }}@github.com/marcolanfranchi/marcolanfranchi.github.io.git" main
