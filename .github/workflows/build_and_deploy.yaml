@@ -6,9 +6,13 @@ on:
       - main
       - master
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
@@ -20,23 +24,37 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python3 -m pip install --upgrade pip
+          python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Clean old build
-        run: python3 build.py clean
+        run: python build.py clean
 
       - name: Generate static site
-        run: python3 build.py
+        run: python build.py
 
-      - name: Deploy to marcolanfranchi.github.io
+      - name: Checkout Pages repo
+        uses: actions/checkout@v4
+        with:
+          repository: marcolanfranchi/marcolanfranchi.github.io
+          path: pages
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync build output to Pages repo
         run: |
-          cd build
-          echo "mlanfranchi.xyz" > CNAME # preserve custom domain
-          git init
+          rsync -av --delete build/ pages/
+          echo "mlanfranchi.xyz" > pages/CNAME
+
+      - name: Commit and push changes
+        run: |
+          cd pages
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add .
-          git commit -m "Deploy site"
-          git branch -M main
-          git push --force "https://${{ secrets.GH_PAGES_PAT }}@github.com/marcolanfranchi/marcolanfranchi.github.io.git" main
+
+          if git status --porcelain | grep .; then
+            git add .
+            git commit -m "Deploy site ($(date -u +'%Y-%m-%d %H:%M:%S UTC'))"
+            git push origin main
+          else
+            echo "No changes to deploy"
+          fi
