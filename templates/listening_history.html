@@ -161,6 +161,15 @@ async function getPlays() {
 }
 
 /* ================= UTIL ================= */
+function formatPlayTime(utc) {
+  const d = new Date(utc);
+  return d.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  });
+}
+
 function getLocalDateKey(utc) {
   const d = new Date(utc);
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
@@ -481,26 +490,21 @@ async function renderMusic() {
       <span class="play-count">(${items.length})</span>
     `;
 
-    const artistCounts = items.reduce((acc, play) => {
-      acc[play.artist_name] = (acc[play.artist_name] || 0) + 1;
-      return acc;
-    }, {});
+  const artistList = document.createElement("div");
+  artistList.className = "music-artists";
+  artistList.style.display = isFirstDay ? "block" : "none";
 
-    const sortedArtists = Object.entries(artistCounts)
-      .sort((a, b) => b[1] - a[1]);
-
-    const artistList = document.createElement("div");
-    artistList.className = "music-artists";
-    artistList.style.display = isFirstDay ? "block" : "none";
-
-    sortedArtists.forEach(([artist, count]) => {
-      const artistItem = document.createElement("div");
-      artistItem.className = "music-artist";
-      artistItem.innerHTML = `
-        <span class="artist-name">${artist}</span>
-        <span class="artist-count">${count} play${count > 1 ? 's' : ''}</span>
+  /* sort plays by time (latest first within the day) */
+  items
+    .sort((a, b) => new Date(b.played_at) - new Date(a.played_at))
+    .forEach(play => {
+      const playItem = document.createElement("div");
+      playItem.className = "music-artist";
+      playItem.innerHTML = `
+        <span class="artist-count">${formatPlayTime(play.played_at)}</span>
+        <span class="artist-name">${play.artist_name} - ${play.track_name}</span>
       `;
-      artistList.appendChild(artistItem);
+      artistList.appendChild(playItem);
     });
 
     header.addEventListener("click", () => {
