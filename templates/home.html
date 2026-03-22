@@ -20,15 +20,15 @@
     
     <h2 class="section-subtitle">Work</h2>
     <div class="timeline-group">
-        {% for internship in data.internships %}
+        {% for job in data.jobs %}
         <div class="timeline-item">
-            <h3>{{ internship.title }}, {{ internship.company }}</h3>
-            <span class="meta">📅 {{ internship.date }}</span>
-            <p>{{ internship.description }}</p>
+            <h3>{{ job.title }}, {{ job.company }}</h3>
+            <span class="meta">{{ job.date }}, {{ job.location }}</span>
+            <p>{{ job.description }}</p>
             <!-- <div class="tags">
-                {% if internship.tech %}
+                {% if job.tech %}
                     🛠️
-                    {% for tech in internship.tech %}
+                    {% for tech in job.tech %}
                         <span>{{ tech }}{% if not loop.last %}, {% endif %}</span>
                     {% endfor %}
                 {% endif %}
@@ -42,7 +42,7 @@
         {% for edu in data.education %}
         <div class="timeline-item">
             <h3>{{ edu.degree }}, {{ edu.school }}</h3>
-            <span class="meta">📅 {{ edu.date }}</span>
+            <span class="meta">{{ edu.date }}, {{ edu.location }}</span>
         </div>
         {% endfor %}
     </div>
@@ -52,7 +52,7 @@
         {% for contr in data.opensource %}
         <div class="timeline-item">
             <h3>{{ contr.title }}</h3>
-            <span class="meta">📅 {{ contr.date }}</span>
+            <span class="meta">{{ contr.date }}</span>
             <p>{{ contr.description }}</p>
             <div class="meta">
                 <a href="{{ contr.pr_link }}" target="_blank">Pull Request</a>
@@ -74,7 +74,7 @@
         {% for vol in data.volunteering %}
         <div class="timeline-item">
             <h3>{{ vol.title }}, {{ vol.company }}</h3>
-            <span class="meta">📅 {{ vol.date }}</span>
+            <span class="meta">{{ vol.date }}, {{ vol.location }}</span>
             <p>{{ vol.description }}</p>
             <!-- <div class="tags">
             {% if vol.tech %}

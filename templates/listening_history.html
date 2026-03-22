@@ -51,7 +51,7 @@
     <!-- ACTIVITY -->
     <div class="section section-activity">
        <h2 class="section-title">Daily Plays</h2>
-        <p class="section-subtitle">Last 30 weeks</p>
+        <p class="section-subtitle">Last 35 weeks</p>
 
         <div class="activity-chart-wrapper">
           <div class="activity-months"></div>
@@ -310,7 +310,7 @@ function renderActivityChart(plays) {
 
   const today = new Date();
   const startDate = new Date(today);
-  startDate.setDate(today.getDate() - (30 * 7));
+  startDate.setDate(today.getDate() - (35 * 7));
 
   const weeks = [];
   let currentWeek = [];

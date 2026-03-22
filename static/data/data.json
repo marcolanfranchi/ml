@@ -1,0 +1,260 @@
+{
+    "name": "Marco Lanfranchi",
+    "email": "marcolanfranchi02 [at] gmail [dot] com",
+    "github": "https://github.com/marcolanfranchi",
+    "linkedin": "https://linkedin.com/in/marco--lanfranchi",
+    "hero_description": "4th year data science student at SFU with experience in databases, software development, and data science.",
+    "education": [
+        {
+            "degree": "BSc in Data Science",
+            "school": "Simon Fraser University",
+            "date": "Sept 2022 - Apr 2026",
+            "description": "Relevant courses include: Data Structures & Algorithms, Computational Data Science, Database Systems, Computer Systems, Intro to AI, Linear Algebra, Statistical Learning & Prediction, Linear Optimization, and Discrete Mathematics.",
+            "location": "Burnaby, BC"
+        },
+        {
+            "degree": "BA (transferred before completion)",
+            "school": "University of British Columbia",
+            "date": "Sept 2020 - Jul 2022",
+            "description": "",
+            "location": "Vancouver, BC"
+        }
+    ],
+    "jobs": [
+        {
+            "title": "Data Scientist I",
+            "company": "Mastercard",
+            "date": "Aug 2026",
+            "description": "Upcoming post-grad role on the ML Tooling/Operations team.",
+            "location": "Vancouver, BC"
+        },
+        {
+            "title": "Database Engineer Intern",
+            "company": "Samsung R&D Canada",
+            "date": "Jan 2025 - Aug 2025",
+            "description": "Cloud Engineering team.",
+            "tech": ["MongoDB", "PostgreSQL", "MySQL", "Redshift", "Python", "Bash", "AWS", "Boto3", "Terraform", "Docker", "GitHub Actions"],
+            "location": "Vancouver, BC"
+        },
+        {
+            "title": "Data Analyst Intern",
+            "company": "Nettwerk Music Group",
+            "date": "Sept 2023 - May 2024",
+            "description": "Developed dashboards, data pipelines, and applied data science techniques analyzing global streaming data for hundreds of artists as part of the Analytics team at an independent record label.",
+            "tech": ["Snowflake", "SQL", "Tableau", "Python", "Scikit-learn", "Data Visualization", "Geospatial Analysis", "Regression Analysis"],
+            "location": "Vancouver, BC"
+        }
+    ],
+    "opensource": [
+        {
+            "title": "Streamlit",
+            "pr_link": "https://github.com/streamlit/streamlit/pull/12897",
+            "date": "Oct 2025",
+            "description": "Contributed to Streamlit, a popular open-source framework for building data and ML apps, by implementing tooltip support for st.badge().",
+            "tech": ["Python", "TypeScript", "Streamlit", "GitHub", "Markdown"]
+        }
+    ],
+    "volunteering": [
+        {
+            "title": "Volunteer Jr. Data Scientist",
+            "company": "Industrio AI",
+            "date": "Jan 2023 - Apr 2023",
+            "description": "Contributed to the development of data applications for business clients, developing interactive visualizations with Python and JavaScript.",
+            "tech": ["Azure", "PostgreSQL", "Python", "Plotly", "Streamlit", "TypeScript", "Vue.js", "Figma"],
+            "location": "Vancouver, BC"
+        },
+        {
+            "title": "Research Associate",
+            "company": "Dr. Matt Lowe, UBC School of Economics",
+            "date": "Jan 2021 - Aug 2021",
+            "description": "Collaborated as an undergraduate research associate collecting data for one of Dr. Matt Lowe's research studies in behavioral economics.",
+            "location": "Vancouver, BC"
+        }
+    ],
+    "projects": [
+        {
+            "title": "lisa (Labeled Identification of Speech Audio)",
+            "description": "ML model for speaker identification from audio clips. Pipeline includes data processing, audio cleaning, feature extraction, and model training. Also developed a demo interface that takes live audio input and identifies speakers.",
+            "tech": ["Python", "Librosa", "FFmpeg", "pyannote.audio", "Scikit-learn", "Streamlit"],
+            "github": "https://github.com/marcolanfranchi/lisa",
+            "demo": "static/images/lisadiagramwhite.png"
+        },
+        {
+            "title": "spotify-history",
+            "description": "Automated background service that archives your Spotify listening history in an SQLite db and emails daily summaries.",
+            "tech": ["Python", "SQLite3", "Spotify API", "Cron", "Shell Scripting"],
+            "github": "https://github.com/marcolanfranchi/spotify-history",
+            "demo": "static/images/pi.png"
+        },
+        {
+            "title": "iammusic-template",
+            "description": "Web app that lets users create custom versions of the 'I AM MUSIC' album cover. Reached over 250k visitors in one month and processed 500k+ submissions via a custom API and NoSQL cloud database.",
+            "tech": ["React.js", "Next.js", "Firebase", "Vercel", "GCP"],
+            "github": "https://github.com/marcolanfranchi/iammusic-template",
+            "website": "https://iammusic-template.vercel.app",
+            "demo": "static/images/iamt.png"
+        },
+        {
+            "title": "written-digit-recognition",
+            "description": "Interactive Streamlit app for handwritten digit classification, backed by a K-nearest neighbors model implemented from scratch in Python.",
+            "tech": ["Python", "NumPy", "Plotly", "Streamlit"],
+            "github": "https://github.com/marcolanfranchi/written-digit-recognition",
+            "demo": "static/images/knn.png"
+        },
+        {
+            "title": "aita-predictor",
+            "description": "A machine learning model that classifies r/AmItheA-hole Reddit posts using an ensemble of classifiers built on vector embeddings and large-scale PySpark text processing.",
+            "tech": ["Python", "PyTorch", "PySpark", "Scikit-learn", "Streamlit", "OpenAI API"],
+            "github": "https://github.com/marcolanfranchi/aita-predictor",
+            "demo": "static/images/aita2.png"
+        }
+    ],
+    "blog_posts": [],
+    "zines": [
+        {
+            "id": "ggggs",
+            "title": "Cypherpunks: The Origins of Digital Resistance",
+            "date": "Oct 2025",
+            "description": "A zine about the origins of the cypherpunk movement. Made as part of SFU's PUB 448 course.",
+            "images_folder": "zines/cypherpunksorigins-zine",
+            "cover_image": "FRONT.png",
+            "template": 1,
+            "pages": ["FRONT.png", "INNERFRONT.png", "1.png", "2.png", "3.png", "4.png", "5.png", "BACK.png"]
+        }
+    ],
+    "concerts": [
+        {
+            "title": "Bar Italia at the Hollywood Theatre",
+            "date": "November 2025",
+            "location": "Vancouver, BC",
+            "folder": "concerts/baritalia-nov2025",
+            "images": ["1.png"]
+        },
+        {
+            "title": "Dream, Ivory & Wisp at the Pearl",
+            "date": "September 2025",
+            "location": "Vancouver, BC",
+            "folder": "concerts/wisp-sept2025",
+            "images": ["1.jpg", "2.png"]
+        },
+        {
+            "title": "Montréal Jazz Festival",
+            "date": "June 2025",
+            "location": "Montréal, QC",
+            "folder": "concerts/montrealjazz-jun2025",
+            "images": ["1.jpg"]
+        },
+        {
+            "title": "Nettspend & Xaviersobased at Showbox",
+            "date": "March 2025",
+            "location": "Seattle, WA",
+            "folder": "concerts/nett-mar2025",
+            "images": ["1.jpg"]
+        },
+        {
+            "title": "The Paper Kites at the Vogue Theatre",
+            "date": "March 2024",
+            "location": "Vancouver, BC",
+            "folder": "concerts/thepaperkites-mar2024",
+            "images": ["1.png"]
+        },
+        {
+            "title": "Shed Theory at Fortune Sound Club",
+            "date": "November 2023",
+            "location": "Vancouver, BC",
+            "folder": "concerts/shedtheory-nov2023",
+            "images": ["1.jpg", "2.jpg"]
+        },
+        {
+            "title": "Yeat at the PNE Forum",
+            "date": "April 2023",
+            "location": "Vancouver, BC",
+            "folder": "concerts/yeat-apr2023",
+            "images": ["1.jpg"]
+        },
+        {
+            "title": "Duwap Kaine & Bktherula at Madame Lou's",
+            "date": "March 2023",
+            "location": "Seattle, WA",
+            "folder": "concerts/duwapkaine-bktherula-mar2023",
+            "images": ["1.jpg", "2.jpg"]
+        },
+        {
+            "title": "Lucki at the Vogue Theatre",
+            "date": "November 2022",
+            "location": "Vancouver, BC",
+            "folder": "concerts/lucki-nov2022",
+            "images": ["1.jpg"]
+        },
+        {
+            "title": "Ken Carson & Destroy Lonely at Fortune Sound Club",
+            "date": "August 2022",
+            "location": "Vancouver, BC",
+            "folder": "concerts/kencarson-aug2022",
+            "images": ["1.jpg", "2.jpg"]
+        },
+        {
+            "title": "Lil Tracy at the Rickshaw Theatre",
+            "date": "August 2022",
+            "location": "Vancouver, BC",
+            "folder": "concerts/liltracy-aug2022",
+            "images": ["1.png"]
+        },
+        {
+            "title": "A$AP Rocky at the PNE Amphitheatre (Summer Breakout Festival)",
+            "date": "June 2019",
+            "location": "Vancouver, BC",
+            "folder": "concerts/asaprocky-june2019",
+            "images": ["1.png"]
+        },
+        {
+            "title": "Playboi Carti at Pacific Coliseum (Winter Breakout Festival)",
+            "date": "December 2018",
+            "location": "Vancouver, BC",
+            "folder": "concerts/carti-dec2018",
+            "images": ["1.png"]
+        },
+        {
+            "title": "Warhol.ss at Venue",
+            "date": "February 2018",
+            "location": "Vancouver, BC",
+            "folder": "concerts/warholss-feb2018",
+            "images": ["1.png"]
+        },
+        {
+            "title": "Killy at Venue",
+            "date": "March 2018",
+            "location": "Vancouver, BC",
+            "folder": "concerts/killy-mar2018",
+            "images": ["1.png"]
+        },
+        {
+            "title": "A$AP Mob at the PNE Forum",
+            "date": "October 2017",
+            "location": "Vancouver, BC",
+            "folder": "concerts/asapmob-oct2017",
+            "images": ["1.png"]
+        },
+        {
+            "title": "Future at Rogers Arena",
+            "date": "June 2017",
+            "location": "Vancouver, BC",
+            "folder": "concerts/future-june2017",
+            "images": ["1.png"]
+        },
+        {
+            "title": "Drake at Rogers Arena",
+            "date": "September 2016",
+            "location": "Vancouver, BC",
+            "folder": "concerts/drake-sept2016",
+            "images": ["1.png"]
+        },
+        {
+            "title": "Tyler the Creator & A$AP Rocky at Rogers Arena",
+            "date": "November 2015",
+            "location": "Vancouver, BC",
+            "folder": "concerts/tyler-asap-nov2015",
+            "images": ["1.png", "2.png"]
+        }
+    ]
+}

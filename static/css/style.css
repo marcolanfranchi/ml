@@ -74,7 +74,7 @@ a:hover::after {
 
 .nav-container {
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -142,7 +142,8 @@ a:hover::after {
 
 /* Main content */
 .main-content {
-    max-width: 800px;
+    max-width: 900px;
+    width: 100%;
     min-width: 800px;
     margin: 40px auto 0;
     padding: 1rem 1.5rem;
