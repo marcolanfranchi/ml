@@ -3,12 +3,12 @@
     "email": "marcolanfranchi02 [at] gmail [dot] com",
     "github": "https://github.com/marcolanfranchi",
     "linkedin": "https://linkedin.com/in/marco--lanfranchi",
-    "hero_description": "4th year data science student at SFU with experience in databases, software development, and data science.",
+    "hero_description": "Incoming Data Scientist I at Mastercard. Experience with database engineering, software development, and data science.",
     "education": [
         {
             "degree": "BSc in Data Science",
             "school": "Simon Fraser University",
-            "date": "Sept 2022 - Apr 2026",
+            "date": "Sept 2022 - Jun 2026",
             "description": "Relevant courses include: Data Structures & Algorithms, Computational Data Science, Database Systems, Computer Systems, Intro to AI, Linear Algebra, Statistical Learning & Prediction, Linear Optimization, and Discrete Mathematics.",
             "location": "Burnaby, BC"
         },
@@ -25,7 +25,7 @@
             "title": "Data Scientist I",
             "company": "Mastercard",
             "date": "Aug 2026",
-            "description": "Upcoming post-grad role on the ML Tooling/Operations team.",
+            "description": "Post-grad role working on ML infrastructure.",
             "location": "Vancouver, BC"
         },
         {
