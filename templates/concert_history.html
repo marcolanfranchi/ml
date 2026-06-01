@@ -4,78 +4,177 @@
 {% block content %}
 <div class="hero-content">
   <h1 class="hero-title">Concert History</h1>
-  <p class="hero-description">A log of concerts I’ve been to so I don't forget any.</p>
+  <p class="hero-description">A log of concerts I've been to so I don't forget any.</p>
 </div>
 
-<div class="section concert-history-grid">
+<div class="ch-timeline">
+  {% set ns = namespace(current_year=none) %}
   {% for concert in data.concerts %}
-  <div class="concert-card">
-    <div class="concert-info">
-      <h3 class="concert-title">{{ concert.title }}</h3>
-      <p class="concert-date">{{ concert.date }} · {{ concert.location }}</p>
+    {% set year = concert.date.split(' ')[-1] %}
+    {% if year != ns.current_year %}
+      {% set ns.current_year = year %}
+      <div class="ch-year-marker">
+        <span class="ch-year-label">{{ year }}</span>
+      </div>
+    {% endif %}
+    <div class="ch-entry">
+      <div class="ch-dot"></div>
+      <div class="ch-body">
+        <div class="ch-header">
+          <h3 class="ch-title">{{ concert.title }}</h3>
+          <span class="ch-meta">{{ concert.date.split(' ')[0] }} {{ concert.date.split(' ')[1] }} · {{ concert.location }}</span>
+        </div>
+        <div class="ch-photos ch-photos--{{ concert.images | length }}">
+          {% for image in concert.images %}
+          <img src="{{ url_for('static', filename=concert.folder + '/' + image) }}" alt="{{ concert.title }}">
+          {% endfor %}
+        </div>
+      </div>
     </div>
-    <div class="concert-images">
-      {% for image in concert.images %}
-      <img src="{{ url_for('static', filename=concert.folder + '/' + image) }}" alt="{{ concert.title }} photo">
-      {% endfor %}
-    </div>
-  </div>
   {% endfor %}
 </div>
 
 <style>
-.concert-history-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+.ch-timeline {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-top: 1rem;
+  max-width: 75%;
 }
 
-.concert-card {
+.ch-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #000;
+}
+
+.ch-year-marker {
+  position: relative;
+  margin: 2rem 0 0.75rem;
+  display: flex;
+  align-items: center;
+}
+
+.ch-year-marker::before {
+  content: '';
+  position: absolute;
+  left: -1.75rem;
+  width: 5px;
+  height: 1px;
+  background: #000;
+}
+
+.ch-year-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #999;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ch-entry {
+  position: relative;
+  padding-bottom: 1.5rem;
+  display: flex;
+  gap: 0;
+}
+
+.ch-dot {
+  position: absolute;
+  left: -1.75rem;
+  top: 0.35rem;
+  width: 5px;
+  height: 5px;
+  border: 1px solid #000;
+  border-top-right-radius: 2px;
+  background: #fff;
+  flex-shrink: 0;
+  transform: translateX(-2px);
+}
+
+.ch-body {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #000;
+  border-top-right-radius: 8px;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
-.concert-info {
-  margin-bottom: 0.3rem;
+.ch-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-width: 0;
 }
 
-.concert-title {
-  font-size: 1rem;
+.ch-title {
+  font-size: 0.9rem;
   font-weight: 600;
-  color: #222;
+  color: #111;
   margin: 0;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
-.concert-date {
-  font-size: 0.85rem;
-  color: #666;
-  margin-top: 0.15rem;
+.ch-meta {
+  font-size: 0.75rem;
+  color: #999;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.concert-images {
+/* ── photo layouts ── */
+.ch-photos {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 0.3rem;
 }
 
-.concert-images img {
+.ch-photos img {
   width: 100%;
-  aspect-ratio: 1 / 1; 
   object-fit: cover;
-  background: #f8f8f8;
-  border-radius: 1px;
+  display: block;
+  border: 1px solid #e8e8e8;
+}
+
+.ch-photos--1 {
+  grid-template-columns: 1fr;
+}
+.ch-photos--1 img {
+  aspect-ratio: 16 / 7;
+}
+
+.ch-photos--2 {
+  grid-template-columns: 1fr 1fr;
+}
+.ch-photos--2 img {
+  aspect-ratio: 4 / 3;
 }
 
 @media (max-width: 600px) {
-  .concert-history-grid {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
+  .ch-timeline {
+    padding-left: 1.25rem;
   }
-
-  .concert-images {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  .ch-header {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .ch-photos--2 {
+    grid-template-columns: 1fr;
+  }
+  .ch-photos--2 img {
+    aspect-ratio: 16 / 9;
   }
 }
 </style>
