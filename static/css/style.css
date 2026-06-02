@@ -286,10 +286,6 @@ a:hover::after {
     transition: transform 0.25s ease;
 }
 
-.project-media img:hover {
-    transform: scale(1.05);
-}
-
 /* Tags/Skills */
 .tags {
     display: flex;

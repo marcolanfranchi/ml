@@ -116,15 +116,11 @@
             </div>
             {% if project.demo %}
                 <div class="project-media">
-                    <img src="{{ project.demo }}" alt="{{ project.title }} demo" onclick="openModal(this)">
+                    <img src="{{ project.demo }}" alt="{{ project.title }} demo">
                 </div>
             {% endif %}
         </div>
         {% endfor %}
-
-        <div id="imgModal" class="img-modal" onclick="closeModal()">
-            <img id="modalImg" class="img-modal-content" alt="">
-        </div>
 
     </div>
 </div>
