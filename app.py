@@ -34,9 +34,9 @@ def get_concert_images(folder):
 def index():
     return render_template('index.html', data=portfolio_data)
 
-@app.route('/zines/')
-def zines():
-    return render_template('zines.html', data=portfolio_data)
+# @app.route('/zines/')
+# def zines():
+#     return render_template('zines.html', data=portfolio_data)
 
 @app.route('/listening-history/')
 def listening_history():
@@ -65,9 +65,9 @@ if __name__ == '__main__':
     if os.environ.get('FREEZE') == 'true':
         freezer = Freezer(app)
 
-        @freezer.register_generator
-        def zines():
-            yield 'zines.html'
+        # @freezer.register_generator
+        # def zines():
+        #     yield 'zines.html'
 
         @freezer.register_generator
         def listening_history():
