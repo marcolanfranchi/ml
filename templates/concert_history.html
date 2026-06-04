@@ -24,9 +24,9 @@
           <h3 class="ch-title">{{ concert.title }}</h3>
           <span class="ch-meta">{{ concert.date.split(' ')[0] }} {{ concert.date.split(' ')[1] }} · {{ concert.location }}</span>
         </div>
-        <div class="ch-photos ch-photos--{{ concert.images | length }}">
-          {% for image in concert.images %}
-          <img src="{{ url_for('static', filename=concert.folder + '/' + image) }}" alt="{{ concert.title }}">
+        <div class="ch-photos ch-photos--{{ concert.image_urls | length }}">
+          {% for url in concert.image_urls %}
+          <img src="{{ url }}" alt="{{ concert.title }}">
           {% endfor %}
         </div>
       </div>

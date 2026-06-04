@@ -1,13 +1,33 @@
 from flask import Flask, render_template, send_from_directory
 from flask_frozen import Freezer
+import boto3
+from botocore import UNSIGNED
+from botocore.config import Config
 import os
 import json
 
 app = Flask(__name__)
 app.config['FREEZER_RELATIVE_URLS'] = True
 
+S3_BUCKET = "marco-personal-site"
+S3_REGION = "us-east-2"
+S3_BASE_URL = f"https://{S3_BUCKET}.s3.{S3_REGION}.amazonaws.com"
+
 with open(os.path.join(app.root_path, 'static/data/data.json')) as f:
     portfolio_data = json.load(f)
+
+
+def get_concert_images(folder):
+    """List all image URLs in a given S3 concert folder, anonymously."""
+    s3 = boto3.client("s3", region_name=S3_REGION, config=Config(signature_version=UNSIGNED))
+    prefix = f"concerts/{folder}/"
+    response = s3.list_objects_v2(Bucket=S3_BUCKET, Prefix=prefix)
+    urls = []
+    for obj in response.get("Contents", []):
+        key = obj["Key"]
+        if not key.endswith("/"):  # skip the folder placeholder itself
+            urls.append(f"{S3_BASE_URL}/{key}")
+    return sorted(urls)
 
 
 @app.route('/')
@@ -24,7 +44,10 @@ def listening_history():
 
 @app.route('/concert-history/')
 def concert_history():
-    return render_template('concert_history.html', data=portfolio_data)
+    concerts = portfolio_data.get("concerts", [])
+    for concert in concerts:
+        concert["image_urls"] = get_concert_images(concert["folder"])
+    return render_template('concert_history.html', data={**portfolio_data, "concerts": concerts})
 
 # @app.route('/blog/<post_id>')
 # def blog_post(post_id):
@@ -41,11 +64,11 @@ def images(filename):
 if __name__ == '__main__':
     if os.environ.get('FREEZE') == 'true':
         freezer = Freezer(app)
-        # Explicitly register all routes for static generation
+
         @freezer.register_generator
         def zines():
             yield 'zines.html'
-        
+
         @freezer.register_generator
         def listening_history():
             yield 'listening_history.html'
@@ -56,4 +79,4 @@ if __name__ == '__main__':
 
         freezer.freeze()
     else:
-        app.run(debug=True, host='0.0.0.0', port=5000) 
+        app.run(debug=True, host='0.0.0.0', port=5000)
