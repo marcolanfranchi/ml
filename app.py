@@ -1,33 +1,88 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, jsonify
 from flask_frozen import Freezer
+from dotenv import load_dotenv
+from data import portfolio_data
 import boto3
 from botocore import UNSIGNED
 from botocore.config import Config
 import os
-import json
+import time
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+
+load_dotenv()
 
 app = Flask(__name__)
 app.config['FREEZER_RELATIVE_URLS'] = True
 
-S3_BUCKET = "marco-personal-site"
-S3_REGION = "us-east-2"
+S3_BUCKET   = os.getenv("S3_BUCKET", "marco-personal-site")
+S3_REGION   = os.getenv("S3_REGION", "us-east-2")
+API_URL     = os.getenv("API_URL", "")
 S3_BASE_URL = f"https://{S3_BUCKET}.s3.{S3_REGION}.amazonaws.com"
 
-with open(os.path.join(app.root_path, 'static/data/data.json')) as f:
-    portfolio_data = json.load(f)
+
+@app.context_processor
+def inject_globals():
+    return {"api_url": API_URL, "s3_base_url": S3_BASE_URL}
+
+# In-memory cache
+_cache = {}
+_CACHE_TTL = 600
+
+
+def _cache_get(key):
+    entry = _cache.get(key)
+    if entry and time.time() - entry['ts'] < _CACHE_TTL:
+        return entry['data']
+    return None
+
+
+def _cache_set(key, data):
+    _cache[key] = {'data': data, 'ts': time.time()}
 
 
 def get_concert_images(folder):
-    """List all image URLs in a given S3 concert folder, anonymously."""
+    cached = _cache_get(f'concert:{folder}')
+    if cached is not None:
+        return cached
     s3 = boto3.client("s3", region_name=S3_REGION, config=Config(signature_version=UNSIGNED))
     prefix = f"concerts/{folder}/"
     response = s3.list_objects_v2(Bucket=S3_BUCKET, Prefix=prefix)
-    urls = []
-    for obj in response.get("Contents", []):
-        key = obj["Key"]
-        if not key.endswith("/"):  # skip the folder placeholder itself
-            urls.append(f"{S3_BASE_URL}/{key}")
-    return sorted(urls)
+    urls = sorted([
+        f"{S3_BASE_URL}/{obj['Key']}"
+        for obj in response.get("Contents", [])
+        if not obj["Key"].endswith("/")
+    ])
+    _cache_set(f'concert:{folder}', urls)
+    return urls
+
+
+def get_all_photos():
+    cached = _cache_get('photos')
+    if cached is not None:
+        return cached
+    raw = portfolio_data.get("photos", [])
+    photos = []
+    for p in raw:
+        photos.append({
+            "url": f"{S3_BASE_URL}/photos/{p['folder']}/{p['filename']}",
+            "filename": p["filename"],
+            "label": p["label"],
+            "lat": p["lat"],
+            "lon": p["lon"],
+            "datetime": p.get("datetime"),
+            "camera": p.get("camera", "Unknown"),
+        })
+    def sort_key(p):
+        try:
+            return datetime.fromisoformat(p["datetime"])
+        except (ValueError, TypeError):
+            return datetime.min
+    photos.sort(key=sort_key, reverse=True)
+    for i, p in enumerate(photos):
+        p["index"] = i
+    _cache_set('photos', photos)
+    return photos
 
 
 @app.route('/')
@@ -45,21 +100,50 @@ def listening_history():
 @app.route('/concert-history/')
 def concert_history():
     concerts = portfolio_data.get("concerts", [])
-    for concert in concerts:
-        concert["image_urls"] = get_concert_images(concert["folder"])
+    # image_urls fetched client-side via /api/concerts.json
     return render_template('concert_history.html', data={**portfolio_data, "concerts": concerts})
 
-# @app.route('/blog/<post_id>')
-# def blog_post(post_id):
-#     post = next((p for p in portfolio_data['blog_posts'] if p['id'] == post_id), None)
-#     if post:
-#         return render_template('blog_post.html', post=post, data=portfolio_data)
-#     return "Blog post not found", 404
+@app.route('/photos/')
+def photos():
+    return render_template('photos.html', data=portfolio_data)
 
-# Serve images from the project-level images directory
+# JSON API
+# These endpoints are also frozen to build/api/*.json during `flask freeze`,
+# so the static site can serve them without Lambda. Lambda serves live data.
+
+@app.route('/api/photos.json')
+def api_photos():
+    resp = jsonify(get_all_photos())
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Cache-Control'] = 'public, max-age=300'
+    return resp
+
+
+@app.route('/api/concerts.json')
+def api_concerts():
+    concerts = list(portfolio_data.get("concerts", []))
+
+    def fetch(concert):
+        return {**concert, 'image_urls': get_concert_images(concert['folder'])}
+
+    with ThreadPoolExecutor(max_workers=max(len(concerts), 1)) as ex:
+        result = list(ex.map(fetch, concerts))
+
+    resp = jsonify(result)
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Cache-Control'] = 'public, max-age=300'
+    return resp
+
 @app.route('/images/<path:filename>')
 def images(filename):
     return send_from_directory(os.path.join(app.root_path, 'images'), filename)
+
+# Lambda entry point (no-op when mangum is not installed locally)
+try:
+    from mangum import Mangum
+    handler = Mangum(app, lifespan="off")
+except ImportError:
+    pass
 
 if __name__ == '__main__':
     if os.environ.get('FREEZE') == 'true':
@@ -76,6 +160,10 @@ if __name__ == '__main__':
         @freezer.register_generator
         def concert_history():
             yield 'concert_history.html'
+
+        @freezer.register_generator
+        def photos():
+            yield 'photos.html'
 
         freezer.freeze()
     else:
