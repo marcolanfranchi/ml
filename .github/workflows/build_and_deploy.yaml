@@ -27,6 +27,9 @@ jobs:
         run: python3 build.py clean
 
       - name: Generate static site
+        env:
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          S3_REGION: ${{ secrets.S3_REGION }}
         run: python3 build.py
 
       - name: Deploy to marcolanfranchi.github.io

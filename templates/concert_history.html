@@ -24,15 +24,39 @@
           <h3 class="ch-title">{{ concert.title }}</h3>
           <span class="ch-meta">{{ concert.date.split(' ')[0] }} {{ concert.date.split(' ')[1] }} · {{ concert.location }}</span>
         </div>
-        <div class="ch-photos ch-photos--{{ concert.image_urls | length }}">
-          {% for url in concert.image_urls %}
-          <img src="{{ url }}" alt="{{ concert.title }}">
-          {% endfor %}
-        </div>
+        <div class="ch-photos" data-folder="{{ concert.folder }}"></div>
       </div>
     </div>
   {% endfor %}
 </div>
+
+<script>
+async function loadConcertImages() {
+  let concerts;
+  try {
+    const res = await fetch('{{ api_url }}/api/concerts.json');
+    concerts = await res.json();
+  } catch (_) { return; }
+
+  const byFolder = {};
+  concerts.forEach(c => { byFolder[c.folder] = c; });
+
+  document.querySelectorAll('.ch-photos[data-folder]').forEach(div => {
+    const concert = byFolder[div.dataset.folder];
+    if (!concert || !concert.image_urls.length) return;
+    const count = concert.image_urls.length;
+    div.className = `ch-photos ch-photos--${count}`;
+    concert.image_urls.forEach(url => {
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = div.closest('.ch-body').querySelector('.ch-title').textContent.trim();
+      img.loading = 'lazy';
+      div.appendChild(img);
+    });
+  });
+}
+loadConcertImages();
+</script>
 
 <style>
 .ch-timeline {

@@ -1,0 +1,388 @@
+{% extends "base.html" %}
+{% block title %}Photos{% endblock %}
+
+{% block content %}
+<div class="hero-content">
+  <h1 class="hero-title">Photos</h1>
+  <p class="hero-description">Photos I've taken tagged by location, ordered by date and time.</p>
+</div>
+
+<div class="pg-toggle-row">
+  <div class="pg-toggle">
+    <span class="pg-opt pg-opt-active" id="pg-tab-gallery" onclick="pgSetView('gallery')">gallery</span>
+    <span class="pg-sep">/</span>
+    <span class="pg-opt" id="pg-tab-map" onclick="pgSetView('map')">map</span>
+  </div>
+</div>
+
+<div id="pg-gallery-view" class="pg-gallery">
+  <p class="pg-loading">Loading…</p>
+</div>
+
+<div id="pg-map-view" class="pg-map-wrap" style="display:none;">
+  <div id="pg-map"></div>
+</div>
+
+<div class="pg-lightbox" id="pg-lightbox">
+  <div class="pg-lb-card">
+    <button class="pg-lb-close" onclick="pgCloseLightbox()" aria-label="Close">&times;</button>
+    <div class="pg-lb-topbar">
+      <span class="pg-lb-index" id="pg-lb-index"></span>
+    </div>
+    <div class="pg-lb-photo">
+      <img id="pg-lb-img" src="" alt="">
+    </div>
+    <div class="pg-lb-meta">
+      <div class="pg-lb-field">
+        <span class="pg-lb-label-tag">Location</span>
+        <span class="pg-lb-value" id="pg-lb-location">—</span>
+      </div>
+      <div class="pg-lb-field">
+        <span class="pg-lb-label-tag">Date</span>
+        <span class="pg-lb-value" id="pg-lb-datetime">—</span>
+      </div>
+      <div class="pg-lb-field">
+        <span class="pg-lb-label-tag">Camera</span>
+        <span class="pg-lb-value" id="pg-lb-camera">—</span>
+      </div>
+    </div>
+    <div class="pg-lb-nav">
+      <button class="pg-lb-arrow" onclick="pgShiftLightbox(-1)">&#8592; prev</button>
+      <button class="pg-lb-arrow" onclick="pgShiftLightbox(1)">next &#8594;</button>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+
+<style>
+.pg-toggle-row {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 1.5rem;
+}
+.pg-toggle { display: flex; align-items: baseline; gap: 0.35rem; }
+.pg-sep { font-size: 0.7rem; color: #ccc; }
+.pg-opt {
+  font-size: 0.75rem;
+  color: #999;
+  cursor: pointer;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  transition: color 0.15s;
+  user-select: none;
+  text-transform: uppercase;
+}
+.pg-opt:hover { color: #555; }
+.pg-opt-active {
+  color: #111;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pg-gallery {
+  columns: 4;
+  column-gap: 0.5rem;
+}
+.pg-item {
+  break-inside: avoid;
+  margin-bottom: 0.5rem;
+  cursor: zoom-in;
+}
+.pg-item-photo {
+  overflow: hidden;
+  background: #e2e2e2;
+}
+.pg-item-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: grayscale(15%) contrast(1.02);
+  transition: filter 0.2s ease, transform 0.3s ease;
+}
+.pg-item:hover .pg-item-photo img {
+  filter: grayscale(0%);
+  transform: scale(1.06);
+}
+
+.pg-empty, .pg-loading {
+  color: #999;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+.pg-map-wrap {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+}
+#pg-map {
+  width: 100%;
+  height: 480px;
+  background: #e8e8e8;
+  filter: grayscale(35%) contrast(1.05);
+}
+
+.pg-popup h4 {
+  font-family: 'Alike Angular', serif;
+  font-size: 0.85rem;
+  margin-bottom: 0.15rem;
+  color: #111;
+}
+.pg-popup .pg-popup-meta {
+  font-size: 0.7rem;
+  color: #999;
+  margin-bottom: 0.35rem;
+  display: block;
+}
+.pg-popup .pg-popup-thumbs {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  max-width: 160px;
+}
+.pg-popup .pg-popup-thumbs img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.pg-popup .pg-popup-thumbs img:hover { opacity: 0.75; }
+
+.pg-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(20, 20, 20, 0.5);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+.pg-lb-card {
+  position: relative;
+  background: #eeeeec;
+  width: min(960px, 94vw);
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+}
+.pg-lb-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  font-family: 'Alike Angular', serif;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #111;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  z-index: 5;
+  transition: color 0.15s;
+}
+.pg-lb-close:hover { color: #666; }
+.pg-lb-topbar {
+  padding: 0.75rem 1.1rem;
+  flex-shrink: 0;
+}
+.pg-lb-index { font-size: 0.7rem; color: #999; }
+.pg-lb-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 3rem 2rem;
+  flex: 1;
+  min-height: 0;
+}
+.pg-lb-photo img {
+  max-width: 100%;
+  max-height: 65vh;
+  object-fit: contain;
+  display: block;
+}
+.pg-lb-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 0.85rem 1rem;
+  flex-shrink: 0;
+}
+.pg-lb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.pg-lb-label-tag {
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #aaa;
+}
+.pg-lb-value {
+  font-size: 0.75rem;
+  color: #333;
+  font-weight: 400;
+}
+.pg-lb-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.pg-lb-arrow {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 0.7rem;
+  font-family: 'Alike Angular', serif;
+  font-size: 0.8rem;
+  color: #111;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.pg-lb-arrow:hover { background: rgba(0,0,0,0.05); }
+
+@media (max-width: 700px) {
+  .pg-gallery { columns: 2; }
+  #pg-map { height: 360px; }
+  .pg-lb-meta { grid-template-columns: 1fr; gap: 0.5rem; }
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+let PG_PHOTOS = [];
+let pgMap = null;
+let pgMarkersAdded = false;
+
+function pgFormatDatetime(iso) {
+  if (!iso) return '—';
+  const d = new Date(iso);
+  if (isNaN(d)) return '—';
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) +
+         ' · ' + d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+}
+
+function pgRenderGallery(photos) {
+  const gallery = document.getElementById('pg-gallery-view');
+  gallery.innerHTML = '';
+  if (!photos.length) {
+    gallery.innerHTML = '<p class="pg-empty">No photos yet — check back soon.</p>';
+    return;
+  }
+  photos.forEach(photo => {
+    const item = document.createElement('div');
+    item.className = 'pg-item';
+    item.onclick = () => pgOpenLightbox(photo.index);
+    const wrap = document.createElement('div');
+    wrap.className = 'pg-item-photo';
+    const img = document.createElement('img');
+    img.src = photo.url;
+    img.alt = photo.label;
+    img.loading = 'lazy';
+    wrap.appendChild(img);
+    item.appendChild(wrap);
+    gallery.appendChild(item);
+  });
+}
+
+async function loadPhotos() {
+  try {
+    const res = await fetch('{{ api_url }}/api/photos.json');
+    PG_PHOTOS = await res.json();
+  } catch (_) {
+    document.getElementById('pg-gallery-view').innerHTML = '<p class="pg-empty">Could not load photos.</p>';
+    return;
+  }
+  pgRenderGallery(PG_PHOTOS);
+  if (document.getElementById('pg-map-view').style.display !== 'none') pgAddMapMarkers();
+}
+loadPhotos();
+
+function pgSetView(mode) {
+  document.getElementById('pg-tab-gallery').classList.toggle('pg-opt-active', mode === 'gallery');
+  document.getElementById('pg-tab-map').classList.toggle('pg-opt-active', mode === 'map');
+  document.getElementById('pg-gallery-view').style.display = mode === 'gallery' ? 'block' : 'none';
+  document.getElementById('pg-map-view').style.display   = mode === 'map'     ? 'block' : 'none';
+  if (mode === 'map') { pgInitMap(); setTimeout(() => pgMap && pgMap.invalidateSize(), 50); }
+}
+
+function pgInitMap() {
+  if (!pgMap) {
+    pgMap = L.map('pg-map', { scrollWheelZoom: false });
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors', maxZoom: 18
+    }).addTo(pgMap);
+    pgMap.setView([20, 0], 2);
+  }
+  pgAddMapMarkers();
+}
+
+function pgAddMapMarkers() {
+  if (!pgMap || pgMarkersAdded || !PG_PHOTOS.length) return;
+  pgMarkersAdded = true;
+  const groups = {};
+  PG_PHOTOS.forEach(p => {
+    const key = p.label + '|' + p.lat + '|' + p.lon;
+    if (!groups[key]) groups[key] = { label: p.label, lat: p.lat, lon: p.lon, photos: [] };
+    groups[key].photos.push(p);
+  });
+  const allPoints = [];
+  Object.values(groups).forEach(group => {
+    allPoints.push([group.lat, group.lon]);
+    const marker = L.circleMarker([group.lat, group.lon], {
+      radius: 6, color: '#111', weight: 1.5, fillColor: '#fff', fillOpacity: 1
+    }).addTo(pgMap);
+    const thumbs = group.photos.slice(0, 6).map(p =>
+      `<img src="${p.url}" onclick="pgCloseMapPopup(); pgOpenLightbox(${p.index})">`
+    ).join('');
+    marker.bindPopup(`
+      <div class="pg-popup">
+        <h4>${group.label}</h4>
+        <span class="pg-popup-meta">${group.photos.length} photo${group.photos.length !== 1 ? 's' : ''}</span>
+        <div class="pg-popup-thumbs">${thumbs}</div>
+      </div>
+    `);
+  });
+  if (allPoints.length) pgMap.fitBounds(L.latLngBounds(allPoints).pad(0.3));
+}
+
+function pgCloseMapPopup() { if (pgMap) pgMap.closePopup(); }
+
+let pgLightboxIndex = 0;
+
+function pgOpenLightbox(index) {
+  pgLightboxIndex = index;
+  pgRenderLightbox();
+  document.getElementById('pg-lightbox').style.display = 'flex';
+}
+
+function pgRenderLightbox() {
+  const n = PG_PHOTOS.length;
+  if (!n) return;
+  pgLightboxIndex = (pgLightboxIndex + n) % n;
+  const photo = PG_PHOTOS[pgLightboxIndex];
+  document.getElementById('pg-lb-img').src = photo.url;
+  document.getElementById('pg-lb-location').textContent = photo.label || '—';
+  document.getElementById('pg-lb-datetime').textContent = pgFormatDatetime(photo.datetime);
+  document.getElementById('pg-lb-camera').textContent   = photo.camera || '—';
+  document.getElementById('pg-lb-index').textContent    = `${pgLightboxIndex + 1} / ${n}`;
+}
+
+function pgShiftLightbox(delta) { pgLightboxIndex += delta; pgRenderLightbox(); }
+
+function pgCloseLightbox() { document.getElementById('pg-lightbox').style.display = 'none'; }
+
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('pg-lightbox');
+  if (lb.style.display !== 'flex') return;
+  if (e.key === 'Escape')     pgCloseLightbox();
+  if (e.key === 'ArrowLeft')  pgShiftLightbox(-1);
+  if (e.key === 'ArrowRight') pgShiftLightbox(1);
+});
+</script>
+{% endblock %}
