@@ -25,9 +25,9 @@
 
 <div class="pg-lightbox" id="pg-lightbox">
   <div class="pg-lb-card">
-    <button class="pg-lb-close" onclick="pgCloseLightbox()" aria-label="Close">&times;</button>
     <div class="pg-lb-topbar">
       <span class="pg-lb-index" id="pg-lb-index"></span>
+      <button class="pg-lb-close" onclick="pgCloseLightbox()" aria-label="Close">&times;</button>
     </div>
     <div class="pg-lb-photo">
       <img id="pg-lb-img" src="" alt="">
@@ -156,7 +156,7 @@
   position: fixed;
   inset: 0;
   z-index: 2000;
-  background: rgba(20, 20, 20, 0.5);
+  background: rgba(12, 12, 12, 0.78);
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
@@ -165,16 +165,13 @@
   position: relative;
   background: #eeeeec;
   width: min(960px, 94vw);
-  max-height: 95vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
 .pg-lb-close {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.75rem;
   background: none;
   border: none;
   font-family: 'Alike Angular', serif;
@@ -182,21 +179,23 @@
   line-height: 1;
   color: #111;
   cursor: pointer;
-  padding: 0.3rem 0.5rem;
-  z-index: 5;
+  padding: 0;
   transition: color 0.15s;
 }
 .pg-lb-close:hover { color: #666; }
 .pg-lb-topbar {
   padding: 0.75rem 1.1rem;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .pg-lb-index { font-size: 0.7rem; color: #999; }
 .pg-lb-photo {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 3rem 2rem;
+  padding: 1.5rem 5rem 2rem;
   flex: 1;
   min-height: 0;
 }
