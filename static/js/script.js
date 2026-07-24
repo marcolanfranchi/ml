@@ -22,11 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     if (dropdown && dropdownLink) {
         dropdownLink.addEventListener('click', function(e) {
-            // On mobile, toggle the dropdown instead of following the link
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                dropdown.classList.toggle('active');
-            }
+            e.preventDefault();
+            dropdown.classList.toggle('active');
         });
         
         // Close dropdown when clicking outside
