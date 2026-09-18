@@ -3,7 +3,7 @@ portfolio_data = {
     "email": "marcolanfranchi02 [at] gmail [dot] com",
     "github": "https://github.com/marcolanfranchi",
     "linkedin": "https://linkedin.com/in/marco--lanfranchi",
-    "hero_description": "Incoming Data Scientist I at Mastercard. Experience with database engineering, software development, and data science.",
+    "hero_description": "Data Scientist I at Mastercard. Experience with database engineering, software development, and data science.",
 
     # Education
     "education": [
@@ -28,8 +28,8 @@ portfolio_data = {
         {
             "title": "Data Scientist I",
             "company": "Mastercard",
-            "date": "Aug 2026",
-            "description": "Post-grad role working on ML infrastructure.",
+            "date": "Aug 2026 - Present",
+            "description": "Developing tools and infrastructure for data science and AI teams.",
             "location": "Vancouver, BC",
         },
         {
