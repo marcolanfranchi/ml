@@ -42,4 +42,4 @@ jobs:
           git add .
           git commit -m "Deploy site"
           git branch -M main
-          git push --force "https://${{ secrets.GH_PAGES_PAT }}@github.com/marcolanfranchi/marcolanfranchi.github.io.git" main
+          git push --force "https://x-access-token:${{ secrets.GH_PAGES_PAT }}@github.com/marcolanfranchi/marcolanfranchi.github.io.git" main
