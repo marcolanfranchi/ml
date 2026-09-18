@@ -4,7 +4,7 @@
     <p class="hero-description">{{ data.hero_description }}</p>
     
     <div class="hero-contact">
-        <span>Burnaby, BC</span>
+        <span>Vancouver, BC</span>
         <!-- <span class="separator">•</span>
         <span> {{ data.email }} </span> -->
         <span class="separator">•</span>
@@ -23,7 +23,7 @@
         {% for job in data.jobs %}
         <div class="timeline-item">
             <h3>{{ job.title }}, {{ job.company }}</h3>
-            <span class="meta">{{ job.date }}, {{ job.location }}</span>
+            <span class="meta-badge">{{ job.date }}</span><span class="meta-badge">{{ job.location }}</span>
             <p>{{ job.description }}</p>
             <!-- <div class="tags">
                 {% if job.tech %}
@@ -42,7 +42,7 @@
         {% for edu in data.education %}
         <div class="timeline-item">
             <h3>{{ edu.degree }}, {{ edu.school }}</h3>
-            <span class="meta">{{ edu.date }}, {{ edu.location }}</span>
+            <span class="meta-badge">{{ edu.date }}</span><span class="meta-badge">{{ edu.location }}</span>
         </div>
         {% endfor %}
     </div>
@@ -52,7 +52,7 @@
         {% for contr in data.opensource %}
         <div class="timeline-item">
             <h3>{{ contr.title }}</h3>
-            <span class="meta">{{ contr.date }}</span>
+            <span class="meta-badge">{{ contr.date }}</span>
             <p>{{ contr.description }}</p>
             <div class="meta">
                 <a href="{{ contr.pr_link }}" target="_blank">Pull Request</a>
@@ -69,12 +69,12 @@
         {% endfor %}
     </div>
 
-    <h2 class="section-subtitle">Other Experience</h2>
+    <h2 class="section-subtitle">Volunteer Experience</h2>
     <div class="timeline-group">
         {% for vol in data.volunteering %}
         <div class="timeline-item">
             <h3>{{ vol.title }}, {{ vol.company }}</h3>
-            <span class="meta">{{ vol.date }}, {{ vol.location }}</span>
+            <span class="meta-badge">{{ vol.date }}</span><span class="meta-badge">{{ vol.location }}</span>
             <p>{{ vol.description }}</p>
             <!-- <div class="tags">
             {% if vol.tech %}

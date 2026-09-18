@@ -237,6 +237,17 @@ a:hover {
     display: block;
 }
 
+.timeline-item .meta-badge {
+    display: inline-block;
+    background-color: #ebebeb;
+    color: #2c2f31;
+    font-size: 0.68rem;
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-right: 4px;
+    margin-bottom: 0.3rem;
+}
+
 .timeline-item p {
     margin-bottom: 0.25rem;
     color: #54595d;
