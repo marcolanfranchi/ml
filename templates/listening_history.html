@@ -106,7 +106,7 @@
     <!-- TOP GENRES -->
     <section class="lh-sec">
       <header class="lh-h"><h2>Top Genres</h2><span class="section-period" id="genres-period"></span></header>
-      <p class="lh-note" id="genres-note"></p>
+      <p class="lh-note">Share of plays; an artist can have several genres.</p>
       <div id="top-genres"></div>
     </section>
 
@@ -152,7 +152,6 @@ const CSV_URL = "{{ s3_base_url }}/spotify-history/plays.csv";
 let allPlays = [];
 let dataSource = 'json';  // 'json' | 'csv' (legacy fallback: no ids, durations or metadata)
 let manifest = null;
-let coverage = { artistsKnown: 0, artistsTotal: 0 };
 let viewMode = 'all';
 let weekOffset = 0;
 let currentFilteredPlays = [];
@@ -168,7 +167,7 @@ function trunc(str, n) {
 /* names go into innerHTML and title="" attributes, and many contain & ' " < > */
 const ESC = { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' };
 function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ESC[c]); }
-/* small square image linked to Spotify; an empty box keeps rows aligned while images are still being backfilled */
+/* small square image linked to Spotify; an empty box keeps rows aligned when an artist has no image */
 function thumb(src, url, kind) {
   const img = src ? `<img src="${esc(src)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">` : '';
   return url && src
@@ -286,9 +285,6 @@ async function getPlaysFromJSON() {
   const T  = new Map(tracks.map(t => [t.id, t]));
   const A  = new Map(artists.map(a => [a.id, a]));
   const AL = new Map(albums.map(a => [a.id, a]));
-  coverage = {
-    artistsKnown: artists.filter(a => a.genres_known).length, artistsTotal: artists.length,
-  };
   const out = [];
   for (const p of plays) {
     if (!p.played_at) continue;
@@ -310,7 +306,7 @@ async function getPlaysFromJSON() {
       duration_ms: t?.duration_ms ?? null,
       explicit: t?.explicit ?? null,
       context_type: p.context_type ?? null,
-      genres: a?.genres_known ? (a.genres || []) : null,  // null = not fetched yet, [] = none
+      genres: a?.genres_known ? (a.genres || []) : null,  // null = not enriched yet (new artist), [] = unclassified by Spotify
       release_date: al?.release_date || null,
       release_year: releaseYear(al?.release_date),
     }));
@@ -639,17 +635,6 @@ function onLogSearchInput() {
 const NO_PLAYS = '<div class="no-data">No plays in this period.</div>';
 const LEGACY_NOTE = 'Not available right now (loaded from the legacy CSV).';
 function pctStr(x) { return x === 0 ? '0%' : x >= 0.995 ? '100%' : x >= 0.1 ? Math.round(x * 100) + '%' : (x * 100).toFixed(1) + '%'; }
-/* a coverage note, plus a thin meter showing backfill progress while it is incomplete */
-function setNote(el, text, known, total) {
-  el.textContent = text;
-  if (total && known < total) {
-    const m = document.createElement('span');
-    m.className = 'cov-meter';
-    m.title = `${known.toLocaleString()} of ${total.toLocaleString()} enriched`;
-    m.innerHTML = `<span style="width:${(known / total * 100).toFixed(1)}%"></span>`;
-    el.appendChild(m);
-  }
-}
 /* one ranked row in the existing alltime-row style; `label` is already-escaped HTML */
 function barRow(rank, label, title, badge, frac, extra = '') {
   return `<div class="alltime-row"><span class="alltime-rank">${rank}</span>${extra}<div class="alltime-info"><div class="alltime-name-row"><span class="alltime-name" title="${esc(title)}">${label}</span><span class="alltime-count">${badge}</span></div><div class="alltime-bar-bg"><div class="alltime-bar-fill" style="width:${(frac * 100).toFixed(1)}%"></div></div></div></div>`;
@@ -719,28 +704,19 @@ function renderWhen(plays) {
   dowEl.innerHTML = dows.map((c, i) => barRow(DOW[i], `${c.toLocaleString()} plays`, `${DOW[i]}: ${c} plays`, pctStr(c / n), c / maxD)).join('');
 }
 
-/* ── top genres (from artist genres; backfilled gradually, so always state coverage) ── */
+/* ── top genres: share of the period's plays whose main artist carries each genre.
+   An artist can have several genres, so shares overlap and don't sum to 100%. Artists without genres
+   ([] = unclassified by Spotify, null = not enriched yet) just don't count toward any. ── */
 function renderGenres(plays) {
-  const el = document.getElementById('top-genres'), note = document.getElementById('genres-note');
-  if (dataSource === 'csv') { el.innerHTML = ''; note.textContent = LEGACY_NOTE; return; }
-  const { artistsKnown: k, artistsTotal: t } = coverage;
-  const backfill = k < t ? `genres known for ${k.toLocaleString()} of ${t.toLocaleString()} artists; backfill in progress` : '';
-  if (!plays.length) { note.textContent = ''; el.innerHTML = NO_PLAYS; return; }
-
-  const known = plays.filter(p => p.genres !== null);  // null = not fetched yet; [] = artist has no genres
-  if (!known.length) {
-    el.innerHTML = '';
-    setNote(note, k === 0 ? `Genres known for 0 of ${t.toLocaleString()} artists; backfill in progress.`
-                          : `No genre data yet for the artists in this period (${backfill || 'none listed'}).`, k, t);
-    return;
-  }
+  const el = document.getElementById('top-genres');
+  if (dataSource === 'csv') { el.innerHTML = `<div class="no-data">${LEGACY_NOTE}</div>`; return; }
+  if (!plays.length) { el.innerHTML = NO_PLAYS; return; }
   const counts = new Map();
-  for (const p of known) for (const g of p.genres) counts.set(g, (counts.get(g) || 0) + 1);
+  for (const p of plays) if (p.genres) for (const g of p.genres) counts.set(g, (counts.get(g) || 0) + 1);
   const top = [...counts].sort((a, b) => b[1] - a[1]).slice(0, 10);
-  setNote(note, `Share of plays by artist genre (artists can have several), based on the ${pctStr(known.length / plays.length)} of plays whose artist genres are known` + (backfill ? `; ${backfill}.` : '.'), k, t);
-  if (!top.length) { el.innerHTML = '<div class="no-data">No genres listed for these artists.</div>'; return; }
-  const max = top[0][1];
-  el.innerHTML = top.map(([g, c], i) => barRow(i + 1, esc(g), `${g}: ${c} of ${known.length} plays`, pctStr(c / known.length), c / max)).join('');
+  if (!top.length) { el.innerHTML = '<div class="no-data">No genres for this period.</div>'; return; }
+  const n = plays.length, max = top[0][1];
+  el.innerHTML = top.map(([g, c], i) => barRow(i + 1, esc(g), `${g}: ${c.toLocaleString()} of ${n.toLocaleString()} plays`, pctStr(c / n), c / max)).join('');
 }
 
 /* hover tooltips for the hour chart and heatmap (one delegated listener each) */
@@ -911,9 +887,6 @@ init();
 }
 .no-data { font-size: 0.72rem; color: var(--ink-3); padding: 0.3rem 0; }
 
-/* coverage meter under backfill notes */
-.cov-meter { display: block; width: 140px; max-width: 100%; height: 2px; background: var(--rule); margin-top: 0.4rem; }
-.cov-meter > span { display: block; height: 100%; background: var(--ink-2); }
 
 /* ── sticky time-frame bar ── */
 .lh-bar {

@@ -9,7 +9,7 @@
         (function () {
             var saved = null;
             try { saved = localStorage.getItem('nav-collapsed'); } catch (e) {}
-            if (saved === '1' || (saved === null && window.matchMedia('(max-width: 768px)').matches))
+            if (saved === '1' || (saved === null && window.matchMedia && window.matchMedia('(max-width: 768px)').matches))
                 document.documentElement.classList.add('nav-collapsed');
         })();
     </script>
