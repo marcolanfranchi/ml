@@ -1,20 +1,23 @@
-// Mobile navigation toggle
 document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navbar = document.querySelector('.navbar');
-
-    hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navbar.classList.toggle('active');
-    });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navbar.classList.remove('active');
+    // Collapsible sidebar (initial state is set by the inline script in base.html's <head>)
+    const root = document.documentElement;
+    const navToggle = document.querySelector('.nav-toggle');
+    if (navToggle) {
+        const sync = () => {
+            const collapsed = root.classList.contains('nav-collapsed');
+            navToggle.setAttribute('aria-expanded', String(!collapsed));
+            navToggle.setAttribute('aria-label', collapsed ? 'Show menu' : 'Hide menu');
+            navToggle.title = collapsed ? 'Show menu' : 'Hide menu';
+        };
+        sync();
+        // enable the slide transition only after first paint, so a saved state doesn't animate on load
+        requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add('nav-animate')));
+        navToggle.addEventListener('click', () => {
+            const collapsed = root.classList.toggle('nav-collapsed');
+            try { localStorage.setItem('nav-collapsed', collapsed ? '1' : '0'); } catch (e) {}
+            sync();
         });
-    });
+    }
 
     // Mobile dropdown toggle
     const dropdown = document.querySelector('.dropdown');
@@ -38,7 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
+            const href = this.getAttribute('href');
+            if (href === '#') return;  // e.g. the "Misc." dropdown toggle; '#' isn't a valid selector
+            const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({
                     behavior: 'smooth',
