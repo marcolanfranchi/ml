@@ -1,3 +1,11 @@
+/* Sidebar width: one variable drives the nav, the content margin, and anything offset by it */
+:root {
+    --nav-w: 150px;          /* expanded */
+    --nav-rail: 28px;        /* collapsed: just the toggle */
+    --nav-current: var(--nav-w);
+}
+html.nav-collapsed { --nav-current: var(--nav-rail); }
+
 * {
     margin: 0;
     padding: 0;
@@ -43,13 +51,11 @@ a:hover {
 }
 
 /* ── Sidebar ───────────────────────────────────────────── */
-.hamburger { display: none; }
-
 .navbar {
     position: fixed;
     left: 0;
     top: 0;
-    width: 175px;
+    width: var(--nav-current);
     height: 100vh;
     background: #f8f9fa;
     display: flex;
@@ -59,13 +65,51 @@ a:hover {
 }
 
 .nav-container {
-    width: 100%;
-    padding: 1.5rem 1rem;
+    width: var(--nav-w);
+    padding: 1.5rem 1.6rem 1.5rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     max-width: none;
 }
+
+/* Collapse toggle: top-right of the sidebar; the only thing left showing when collapsed */
+.nav-toggle {
+    position: absolute;
+    top: 1.15rem;
+    right: 0.1rem;
+    z-index: 1;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-size: 0.95rem;
+    line-height: 1;
+    color: #54595d;
+    cursor: pointer;
+}
+/* collapsed: the whole rail is the button (an easy target on phones), glyph at the top */
+html.nav-collapsed .nav-toggle {
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 1.15rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+html.nav-collapsed .nav-toggle:hover { background: #eef0f2; }
+.nav-toggle::before { content: '\00AB'; }            /* « */
+html.nav-collapsed .nav-toggle::before { content: '\00BB'; }   /* » */
+.nav-toggle:hover { color: #0645ad; }
+.nav-toggle:focus-visible { outline: 1px solid #a2a9b1; outline-offset: 1px; }
+html.nav-collapsed .navbar { overflow: hidden; }
+html.nav-collapsed .nav-container { visibility: hidden; }
+html.nav-animate .navbar,
+html.nav-animate .main-content { transition: width 0.2s ease, margin-left 0.2s ease; }
 
 /* Site title in sidebar */
 .nav-container > a.nav-link {
@@ -141,7 +185,7 @@ a:hover {
 
 /* ── Main content ──────────────────────────────────────── */
 .main-content {
-    margin-left: 175px;
+    margin-left: var(--nav-current);
     padding: 0rem 3rem 3rem;
     max-width: 910px;
     scroll-behavior: smooth;
@@ -339,16 +383,13 @@ a:hover {
 
 /* ── Responsive ────────────────────────────────────────── */
 @media (max-width: 768px) {
+    :root { --nav-w: 110px; }
+
     body {
         flex-direction: row;
     }
 
     .navbar {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 125px;
-        height: 100vh;
         flex-direction: column;
         overflow-y: auto;
         overflow-x: hidden;
@@ -358,9 +399,12 @@ a:hover {
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
-        padding: 1rem;
+        padding: 1rem 1.5rem 1rem 0.75rem;
         margin-bottom: 0;
     }
+
+    .nav-toggle { top: 0.65rem; }
+    html.nav-collapsed .nav-toggle { top: 0; padding-top: 0.75rem; }
 
     .nav-container > a.nav-link {
         margin-bottom: 1rem;
@@ -407,7 +451,6 @@ a:hover {
     }
 
     .main-content {
-        margin-left: 125px;
         margin-top: 0;
         padding: 0rem 1rem;
     }

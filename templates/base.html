@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ data.name }}{% endblock %}</title>
+    <script>
+        /* apply the saved sidebar state before first paint; with no saved choice, phones start collapsed */
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('nav-collapsed'); } catch (e) {}
+            if (saved === '1' || (saved === null && window.matchMedia && window.matchMedia('(max-width: 768px)').matches))
+                document.documentElement.classList.add('nav-collapsed');
+        })();
+    </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
+
 </head>
 <body class="{{ request.endpoint }}">
-    <div class="hamburger">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </div>
-    
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="nav-link">marcolanfranchi.xyz</a>
+    <nav class="navbar" id="site-nav">
+        <button type="button" class="nav-toggle" aria-controls="site-nav-links" aria-label="Hide menu" aria-expanded="true"></button>
+        <div class="nav-container" id="site-nav-links">
+            <a href="/" class="nav-link">Home</a>
             {% if request.endpoint == 'index' %}
             <ul class="nav-menu">
                 <li class="nav-link">
